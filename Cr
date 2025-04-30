@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+  <meta charset="UTF-8">
+  <title>شهادة تقدير</title>
+  <link href="https://fonts.googleapis.com/css2?family=Amiri&display=swap" rel="stylesheet">
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
+  <style>
+    body {
+      background: #fdf6e3;
+      font-family: 'Amiri', serif;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      padding: 20px;
+    }
+
+    h1 {
+      color: #8b0000;
+      text-shadow: 2px 2px #ffe;
+    }
+
+    .certificate {
+      width: 700px;
+      border: 10px double #8b0000;
+      padding: 40px;
+      background: white;
+      text-align: center;
+      position: relative;
+      margin-top: 20px;
+      box-shadow: 0 0 15px rgba(0,0,0,0.2);
+    }
+
+    .certificate h2 {
+      font-size: 32px;
+      color: #333;
+      margin-bottom: 20px;
+    }
+
+    .certificate p {
+      font-size: 20px;
+      color: #555;
+      line-height: 1.8;
+    }
+
+    .input-area {
+      margin-top: 20px;
+      text-align: center;
+    }
+
+    input[type="text"] {
+      padding: 10px;
+      font-size: 18px;
+      border: 2px solid #8b0000;
+      border-radius: 5px;
+      width: 300px;
+      text-align: center;
+    }
+
+    button {
+      padding: 10px 20px;
+      font-size: 18px;
+      margin-top: 10px;
+      margin-right: 10px;
+      background-color: #8b0000;
+      color: white;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+    }
+
+    button:hover {
+      background-color: #a30000;
+    }
+
+    .decor {
+      position: absolute;
+      width: 100px;
+      top: -40px;
+    }
+
+    .left-decor {
+      left: -40px;
+    }
+
+    .right-decor {
+      right: -40px;
+      transform: scaleX(-1);
+    }
+
+    .student-name {
+      font-size: 28px;
+      color: #006400;
+      margin: 20px 0;
+      font-weight: bold;
+      text-shadow: 1px 1px #ccc;
+    }
+  </style>
+</head>
+<body>
+
+  <h1>صانع شهادة التقدير</h1>
+
+  <div class="input-area">
+    <input type="text" id="studentNameInput" placeholder="ادخل اسم الطالب هنا">
+    <br>
+    <button onclick="generateCertificate()">اصنع الشهادة</button>
+    <button onclick="downloadCertificate()" style="display:none;" id="saveBtn">حفظ الشهادة</button>
+    <button onclick="printCertificate()" style="display:none;" id="printBtn">طباعة الشهادة</button>
+  </div>
+
+  <div class="certificate" id="certificate" style="display: none;">
+    <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/4/4d/Ornamental_flourish_horizontal.svg/512px-Ornamental_flourish_horizontal.svg.png" class="decor left-decor" alt="زخرفة">
+    <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/4/4d/Ornamental_flourish_horizontal.svg/512px-Ornamental_flourish_horizontal.svg.png" class="decor right-decor" alt="زخرفة">
+
+    <h2>شهادة تقدير</h2>
+    <p>تُمنح هذه الشهادة إلى الطالب المجتهد</p>
+    <div class="student-name" id="studentName">اسم الطالب</div>
+    <p>وذلك تقديرًا لجهوده الرائعة، وأخلاقه الحميدة، وحرصه على العلم والتفوق.</p>
+    <p>نتمنى لك مستقبلًا باهرًا ومليئًا بالنجاحات والإنجازات.</p>
+    <p>مع أطيب الأمنيات - إدارة المدرسة</p>
+  </div>
+
+  <script>
+    function generateCertificate() {
+      const name = document.getElementById("studentNameInput").value.trim();
+      const cert = document.getElementById("certificate");
+      const studentName = document.getElementById("studentName");
+      const saveBtn = document.getElementById("saveBtn");
+      const printBtn = document.getElementById("printBtn");
+
+      if (name.length === 0) {
+        alert("من فضلك أدخل اسم الطالب");
+        return;
+      }
+
+      studentName.textContent = name;
+      cert.style.display = "block";
+      saveBtn.style.display = "inline-block";
+      printBtn.style.display = "inline-block";
+      cert.scrollIntoView({ behavior: "smooth" });
+    }
+
+    function downloadCertificate() {
+      const cert = document.getElementById("certificate");
+      html2canvas(cert).then(canvas => {
+        const link = document.createElement('a');
+        link.download = 'شهادة_تقدير.png';
+        link.href = canvas.toDataURL();
+        link.click();
+      });
+    }
+
+    function printCertificate() {
+      const originalContent = document.body.innerHTML;
+      const certificateContent = document.getElementById("certificate").outerHTML;
+      document.body.innerHTML = certificateContent;
+      window.print();
+      document.body.innerHTML = originalContent;
+      location.reload();
+    }
+  </script>
+
+</body>
+</html>
