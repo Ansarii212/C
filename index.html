@@ -2,174 +2,166 @@
 <html lang="ar" dir="rtl">
 <head>
   <meta charset="UTF-8">
-  <title>شهادة شكر وتقدير</title>
-  <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@600&display=swap" rel="stylesheet">
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+  <title>شهادة تقدير</title>
   <style>
     body {
-      margin: 0;
-      padding: 0;
-      background-color: #2f5f63;
-      font-family: 'Cairo', sans-serif;
-    }
-    .container {
-      width: 1000px;
-      max-width: 95%;
-      margin: 50px auto;
-      background-color: #fdf2dc;
-      padding: 40px;
-      position: relative;
-      box-shadow: 0 0 20px rgba(0,0,0,0.2);
+      background-color: #fdf5e6; /* بيج */
+      font-family: 'Amiri', serif;
       text-align: center;
-      border-radius: 10px;
+      padding: 20px;
     }
-    .side-decor {
-      position: absolute;
-      top: 0;
-      right: 0;
-      height: 100%;
+
+    .certificate {
+      border: 5px double #bfa16b;
+      padding: 40px;
+      width: 800px;
+      margin: auto;
+      background-color: #fffaf0;
+      box-shadow: 0 0 10px #aaa;
+      color: #5c4438;
+      direction: rtl;
     }
-    .side-decor img {
-      height: 100%;
-    }
+
     h1 {
       font-size: 36px;
-      color: #2f5f63;
-      margin-bottom: 10px;
+      color: #8b5e3c;
+      text-shadow: 1px 1px 1px #d2b48c;
     }
-    .subtitle {
+
+    .decor {
       font-size: 20px;
-      margin-bottom: 30px;
+      color: #a0522d;
     }
-    .student-name {
-      font-size: 32px;
-      font-weight: bold;
-      background-color: #d4b98c;
-      display: inline-block;
-      padding: 5px 20px;
-      border-radius: 10px;
-      margin-bottom: 20px;
+
+    .input-group {
+      margin: 15px;
     }
-    .school-name {
-      font-size: 18px;
-      margin-top: 20px;
-      color: #333;
-    }
-    .description {
-      font-size: 16px;
-      color: #444;
-      margin: 20px auto;
-      width: 80%;
-    }
-    .footer {
-      font-size: 22px;
-      margin-top: 40px;
-      color: #2f5f63;
-    }
-    .signatures {
-      display: flex;
-      justify-content: space-between;
-      margin-top: 60px;
-      padding: 0 60px;
-      font-size: 14px;
-      color: #444;
-    }
-    .signature {
-      text-align: center;
-    }
-    .input-area {
-      text-align: center;
-      margin-bottom: 30px;
-    }
+
     input {
-      font-size: 18px;
       padding: 10px;
-      margin: 5px;
-      width: 250px;
+      font-size: 18px;
+      width: 60%;
+      margin-top: 10px;
       text-align: center;
-      border-radius: 5px;
-      border: 1px solid #ccc;
     }
+
+    .buttons {
+      margin-top: 30px;
+    }
+
     button {
       padding: 10px 20px;
+      margin: 10px;
       font-size: 16px;
-      background-color: #2f5f63;
-      color: white;
+      cursor: pointer;
+      background-color: #d2b48c;
       border: none;
       border-radius: 5px;
-      cursor: pointer;
-      margin: 5px;
+      color: #fff;
+    }
+
+    #output {
+      margin-top: 50px;
+      page-break-after: always;
+    }
+
+    .name {
+      font-size: 28px;
+      color: #8b0000;
+      font-weight: bold;
+    }
+
+    .signature {
+      margin-top: 40px;
+      display: flex;
+      justify-content: space-between;
+      padding: 0 50px;
+      font-size: 18px;
+    }
+
+    @media print {
+      .no-print {
+        display: none;
+      }
     }
   </style>
 </head>
 <body>
-  <div class="input-area">
-    <input type="text" id="studentInput" placeholder="ادخل اسم الطالب">
-    <input type="text" id="schoolInput" placeholder="ادخل اسم المدرسة">
-    <br>
-    <button onclick="generate()">إنشاء الشهادة</button>
-    <button onclick="downloadImage()">تحميل كصورة</button>
-    <button onclick="downloadPDF()">تحميل PDF</button>
-    <button onclick="window.print()">طباعة</button>
+
+  <div class="certificate no-print">
+    <h1>إنشاء شهادة تقدير</h1>
+    <div class="input-group">
+      <label>اسم الطالب:</label><br>
+      <input id="studentName" type="text" placeholder="أدخل اسم الطالب">
+    </div>
+    <div class="input-group">
+      <label>اسم المدير:</label><br>
+      <input id="managerName" type="text" placeholder="أدخل اسم المدير">
+    </div>
+    <div class="input-group">
+      <label>اسم المدرسة:</label><br>
+      <input id="schoolName" type="text" placeholder="أدخل اسم المدرسة">
+    </div>
+    <div class="buttons">
+      <button onclick="generateCertificate()">إنشاء الشهادة</button>
+      <button onclick="print()">طباعة</button>
+      <button onclick="downloadAsImage()">حفظ كصورة</button>
+      <button onclick="downloadAsPDF()">تحويل إلى PDF</button>
+    </div>
   </div>
 
-  <div class="container" id="certificate" style="display:none;">
-    <div class="side-decor">
-      <img src="https://images.app.goo.gl/JFqwFwSH36DgxnNR6.png" alt="زخرفة">
+  <div id="output" class="certificate" style="display:none;">
+    <h1>شهادة تقدير</h1>
+    <p class="decor">تُمنح هذه الشهادة لـ</p>
+    <p class="name" id="certStudentName"></p>
+    <p class="decor">وذلك تقديراً لجهوده المبذولة وتفوقه الملحوظ خلال العام الدراسي</p>
+    <p class="decor">مع أطيب الأمنيات بمزيد من النجاح والتقدم</p>
+
+    <div class="signature">
+      <div>المدير: <span id="certManagerName"></span></div>
+      <div>المدرسة: <span id="certSchoolName"></span></div>
     </div>
-    <h1>شكر وتقدير</h1>
-    <div class="subtitle">تُقدم هذه الشهادة بفخر إلى</div>
-    <div class="student-name" id="studentName">اسم الطالب</div>
-    <div class="description">
-      هو ببساطة نص شكلي يُستخدم في صناعة المطابع ودور النشر. كان لوريم إيبسوم ولا يزال المعيار للنص الشكلي.
-    </div>
-    <div class="footer">مع تمنياتنا له بدوام النجاح</div>
-    <div class="signatures">
-      <div class="signature">
-        <div>اسم المسؤول وإحالته</div>
-      </div>
-      <div class="signature">
-        <div>شكر وتقدير</div>
-      </div>
-      <div class="signature">
-        <div>اسم المسؤول وإحالته</div>
-      </div>
-    </div>
-    <div class="school-name" id="schoolName">اسم المدرسة</div>
   </div>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
 
   <script>
-    function generate() {
-      const student = document.getElementById("studentInput").value.trim();
-      const school = document.getElementById("schoolInput").value.trim();
-      if (!student || !school) {
-        alert("من فضلك أدخل اسم الطالب واسم المدرسة");
-        return;
-      }
-      document.getElementById("studentName").textContent = student;
-      document.getElementById("schoolName").textContent = school;
-      document.getElementById("certificate").style.display = "block";
-      document.getElementById("certificate").scrollIntoView({ behavior: "smooth" });
+    function generateCertificate() {
+      const student = document.getElementById("studentName").value;
+      const manager = document.getElementById("managerName").value;
+      const school = document.getElementById("schoolName").value;
+
+      document.getElementById("certStudentName").textContent = student;
+      document.getElementById("certManagerName").textContent = manager;
+      document.getElementById("certSchoolName").textContent = school;
+
+      document.getElementById("output").style.display = "block";
+      window.scrollTo(0, document.body.scrollHeight);
     }
 
-    function downloadImage() {
-      html2canvas(document.getElementById("certificate")).then(canvas => {
+    function downloadAsImage() {
+      const output = document.getElementById("output");
+      html2canvas(output).then(canvas => {
         const link = document.createElement("a");
-        link.download = "شهادة-تقدير.png";
-        link.href = canvas.toDataURL();
+        link.download = "شهادة_تقدير.png";
+        link.href = canvas.toDataURL("image/png");
         link.click();
       });
     }
 
-    async function downloadPDF() {
+    async function downloadAsPDF() {
       const { jsPDF } = window.jspdf;
-      const canvas = await html2canvas(document.getElementById("certificate"));
-      const imgData = canvas.toDataURL("image/png");
-      const pdf = new jsPDF("landscape", "px", [canvas.width, canvas.height]);
-      pdf.addImage(imgData, "PNG", 0, 0, canvas.width, canvas.height);
-      pdf.save("شهادة-تقدير.pdf");
+      const output = document.getElementById("output");
+
+      html2canvas(output).then(canvas => {
+        const imgData = canvas.toDataURL("image/png");
+        const pdf = new jsPDF('landscape', 'pt', [canvas.width, canvas.height]);
+        pdf.addImage(imgData, 'PNG', 0, 0, canvas.width, canvas.height);
+        pdf.save("شهادة_تقدير.pdf");
+      });
     }
   </script>
+
 </body>
 </html>
