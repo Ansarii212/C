@@ -7,7 +7,7 @@
   <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
   <style>
     body {
-      background: linear-gradient(to bottom right, #f8e9c0, #fff8dc);
+      background: linear-gradient(to bottom right, #fdf6e3, #fff8dc);
       font-family: 'Amiri', serif;
       text-align: center;
       padding: 20px;
@@ -52,8 +52,7 @@
       max-width: 100%;
       margin: 30px auto;
       padding: 50px;
-      background: url('https://i.imgur.com/O1s6QmA.png') center center no-repeat;
-      background-size: cover;
+      background: #fff;
       border: 10px solid #d4af37;
       border-radius: 15px;
       box-shadow: 0 0 20px rgba(0,0,0,0.3);
@@ -83,20 +82,14 @@
       margin: 10px 0;
     }
 
-    .decor-top {
-      position: absolute;
-      top: -30px;
-      left: 50%;
-      transform: translateX(-50%);
+    .decor-top,
+    .decor-bottom {
       width: 120px;
+      margin: 20px auto;
     }
 
     .decor-bottom {
-      position: absolute;
-      bottom: -30px;
-      left: 50%;
-      transform: translateX(-50%) rotate(180deg);
-      width: 120px;
+      transform: rotate(180deg);
     }
   </style>
 </head>
@@ -113,14 +106,14 @@
   </div>
 
   <div class="certificate" id="certificate">
-    <img src="https://i.imgur.com/vT2KfRL.png" class="decor-top" alt="زخرفة">
+    <img src="https://i.imgur.com/6RUyGMB.png" class="decor-top" alt="زخرفة علوية">
     <h2>شهادة تقدير</h2>
     <p>تُمنح هذه الشهادة بكل فخر إلى:</p>
     <div class="student-name" id="studentName">اسم الطالب</div>
-    <p>وذلك تقديرًا لتميزه وتفوقه الملحوظ وجهوده الرائعة خلال العام الدراسي.</p>
+    <p>تقديرًا لتميزه وتفوقه الملحوظ وجهوده الرائعة خلال العام الدراسي.</p>
     <p>نتمنى له دوام النجاح والتقدم بإذن الله.</p>
-    <p>مع خالص الشكر والتقدير، إدارة المدرسة</p>
-    <img src="https://i.imgur.com/vT2KfRL.png" class="decor-bottom" alt="زخرفة">
+    <p>مع خالص الشكر والتقدير - إدارة المدرسة</p>
+    <img src="https://i.imgur.com/6RUyGMB.png" class="decor-bottom" alt="زخرفة سفلية">
   </div>
 
   <script>
