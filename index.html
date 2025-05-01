@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="ar" dir="rtl">
 <head>
-  <meta charset="UTF-8" />
+  <meta charset="UTF-8">
   <title>شهادة تقدير</title>
   <link href="https://fonts.googleapis.com/css2?family=Scheherazade&display=swap" rel="stylesheet">
   <style>
@@ -12,45 +12,33 @@
       text-align: center;
       color: #333;
     }
-    .certificate {
-      background-color: #fffaf0;
-      border: 10px double #8b6f24;
-      border-radius: 25px;
-      padding: 40px;
+
+    .container {
       max-width: 800px;
       margin: auto;
-      box-shadow: 0 0 15px rgba(0,0,0,0.2);
     }
-    .title-box {
-      border: 4px solid #d4af37;
-      padding: 10px 30px;
-      display: inline-block;
-      font-size: 30px;
-      font-weight: bold;
-      background: linear-gradient(to right, #fff2c2, #fbe7a1);
-      color: #8b6f24;
-      margin-bottom: 25px;
-      border-radius: 12px;
-      position: relative;
-    }
-    .title-box::before,
-    .title-box::after {
-      content: '🏅';
-      font-size: 24px;
-      position: absolute;
-      top: 50%;
-      transform: translateY(-50%);
-    }
-    .title-box::before { right: 100%; margin-right: 10px; }
-    .title-box::after { left: 100%; margin-left: 10px; }
 
-    input {
-      padding: 8px;
-      margin: 10px;
+    .input-section {
+      background: #fff8ec;
+      padding: 20px;
+      border-radius: 20px;
+      margin-bottom: 20px;
+      box-shadow: 0 0 8px rgba(0,0,0,0.1);
+    }
+
+    .input-section input {
+      display: block;
+      padding: 10px;
+      margin: 10px auto;
       border: 1px solid #aaa;
       border-radius: 6px;
       font-size: 18px;
+      width: 100%;
       font-family: inherit;
+    }
+
+    .btn-section {
+      margin-bottom: 20px;
     }
 
     .btn {
@@ -65,33 +53,57 @@
       font-family: inherit;
     }
 
+    .modal,
     .output {
-      margin-top: 30px;
-      font-size: 20px;
+      min-height: 300px;
     }
+
+    .certificate {
+      background-color: #fffaf0;
+      border: 10px double #8b6f24;
+      border-radius: 25px;
+      padding: 40px;
+      box-shadow: 0 0 15px rgba(0,0,0,0.2);
+    }
+
+    .title-box {
+      border: 4px solid #d4af37;
+      padding: 10px 30px;
+      display: inline-block;
+      font-size: 30px;
+      font-weight: bold;
+      background: linear-gradient(to right, #fff2c2, #fbe7a1);
+      color: #8b6f24;
+      margin-bottom: 25px;
+      border-radius: 12px;
+      position: relative;
+    }
+
+    .title-box::before,
+    .title-box::after {
+      content: '🏅';
+      font-size: 24px;
+      position: absolute;
+      top: 50%;
+      transform: translateY(-50%);
+    }
+
+    .title-box::before { right: 100%; margin-right: 10px; }
+    .title-box::after { left: 100%; margin-left: 10px; }
 
     .modal {
-      position: fixed;
-      top: 0; left: 0;
-      width: 100%; height: 100%;
-      background: rgba(0,0,0,0.8);
       display: none;
-      justify-content: center;
-      align-items: center;
-      z-index: 9999;
-    }
-
-    .modal-content {
       background: #fff;
-      padding: 30px;
-      border-radius: 12px;
-      max-width: 600px;
+      border-radius: 15px;
+      padding: 20px;
+      box-shadow: 0 0 15px rgba(0,0,0,0.2);
       text-align: center;
     }
 
     iframe {
       width: 100%;
       height: 300px;
+      border: none;
       margin-bottom: 15px;
     }
 
@@ -102,39 +114,46 @@
       text-decoration: none;
       font-weight: bold;
     }
+
+    .output {
+      margin-top: 20px;
+    }
   </style>
 </head>
 <body>
 
-<!-- Modal -->
-<div class="modal" id="modal">
-  <div class="modal-content">
-    <h2>شكرًا لزيارتك!</h2>
-    <p>يرجى مشاهدة هذا الفيديو، سيتم تفعيل الإجراء بعد 60 ثانية.</p>
-    <iframe src="https://www.youtube.com/embed/JXLa6vLQhXE?rel=0&autoplay=1"
-            frameborder="0" allow="autoplay; encrypted-media" allowfullscreen></iframe>
+<div class="container">
+
+  <!-- الثلث العلوي لإدخال البيانات -->
+  <div class="input-section">
+    <h2>أدخل البيانات</h2>
+    <input type="text" id="studentName" placeholder="اسم الطالب / الطالبة">
+    <input type="text" id="schoolName" placeholder="اسم المدرسة">
+    <input type="text" id="managerName" placeholder="اسم المدير / المديرة">
+  </div>
+
+  <!-- الأزرار -->
+  <div class="btn-section">
+    <button class="btn" onclick="startAction('generate')">إنشاء الشهادة</button>
+    <button class="btn" onclick="startAction('print')">طباعة</button>
+    <button class="btn" onclick="startAction('download')">حفظ كصورة</button>
+  </div>
+
+  <!-- المنبثق -->
+  <div id="modal" class="modal">
+    <h3>يرجى مشاهدة الفيديو لتفعيل الإجراء</h3>
+    <iframe src="https://www.youtube.com/embed/JXLa6vLQhXE?autoplay=1&rel=0" allow="autoplay; encrypted-media" allowfullscreen></iframe>
     <div class="subscribe-links">
       <a href="https://youtube.com/channel/UCOyD7hrUD4FH02uSaHkVd6A" target="_blank">اشترك في قناتي</a>
       <a href="https://x.com/ansarii212" target="_blank">تابعني على X</a>
     </div>
     <p id="timer">الرجاء الانتظار 60 ثانية...</p>
   </div>
-</div>
 
-<!-- Certificate content -->
-<div class="certificate">
-  <div class="title-box">شهادة تقدير</div>
-  <br />
-  <input type="text" id="studentName" placeholder="اسم الطالب / الطالبة" />
-  <input type="text" id="schoolName" placeholder="اسم المدرسة" />
-  <input type="text" id="managerName" placeholder="اسم المدير / المديرة" />
-  <br />
-  <button class="btn" onclick="startAction('generate')">إنشاء الشهادة</button>
-  <button class="btn" onclick="startAction('print')">طباعة</button>
-  <button class="btn" onclick="startAction('download')">حفظ كصورة</button>
-</div>
+  <!-- الشهادة -->
+  <div class="output" id="certificateOutput"></div>
 
-<div class="output" id="certificateOutput"></div>
+</div>
 
 <!-- html2canvas -->
 <script src="https://html2canvas.hertzen.com/dist/html2canvas.min.js"></script>
@@ -144,7 +163,8 @@
 
   function startAction(action) {
     pendingAction = action;
-    document.getElementById('modal').style.display = 'flex';
+    document.getElementById('modal').style.display = 'block';
+    document.getElementById('certificateOutput').innerHTML = '';
     let counter = 60;
     const timer = document.getElementById('timer');
     timer.textContent = `الرجاء الانتظار ${counter} ثانية...`;
@@ -178,20 +198,18 @@
       return;
     }
 
-    const message = `
-      <div class="certificate" style="background: linear-gradient(to bottom, #f5e6d3, #f3e0c0); border: 10px double #8b6f24; border-radius: 25px; padding: 40px;">
+    const html = `
+      <div class="certificate">
         <div class="title-box">شهادة تقدير</div>
         <p style="font-size: 20px;">تُمنح هذه الشهادة لـ</p>
         <h2 style="font-size: 30px; margin: 10px 0;">${student}</h2>
-        <p style="font-size: 20px;">
-          تقديراً لتفوقه وجهوده المميزة خلال الفترة الدراسية
-        </p>
+        <p style="font-size: 20px;">تقديراً لتفوقه وجهوده المميزة خلال الفترة الدراسية</p>
         <br />
         <p style="font-size: 18px;">مدير المدرسة: ${manager}</p>
         <p style="font-size: 18px;">المدرسة: ${school}</p>
       </div>
     `;
-    document.getElementById("certificateOutput").innerHTML = message;
+    document.getElementById("certificateOutput").innerHTML = html;
   }
 
   function downloadAsImage() {
@@ -203,5 +221,6 @@
     });
   }
 </script>
+
 </body>
 </html>
