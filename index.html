@@ -3,211 +3,212 @@
 <head>
   <meta charset="UTF-8">
   <title>شهادة تقدير</title>
+  <link href="https://fonts.googleapis.com/css2?family=Amiri&display=swap" rel="stylesheet">
   <style>
     body {
       font-family: 'Amiri', serif;
-      background-color: #f5f0e6;
+      background: #f5f0e6;
       margin: 0;
+      padding: 0;
       text-align: center;
-      color: #333;
     }
-
     .container {
-      width: 80%;
-      margin: auto;
+      border: 8px double #b59f7b;
+      margin: 20px auto;
       padding: 20px;
-      border: 6px double #bfa570;
-      border-radius: 25px;
-      background-color: #fff8f0;
+      max-width: 800px;
+      background-color: #fffaf0;
+      border-radius: 20px;
     }
-
-    .form-section input, .form-section select {
-      width: 80%;
-      padding: 10px;
-      margin: 10px auto;
+    .form-section {
+      background-color: #f3e2c7;
+      padding: 20px;
+      border: 2px dotted #a08662;
+      margin-bottom: 20px;
+    }
+    .form-section h2 {
+      font-size: 26px;
+      margin-bottom: 20px;
+    }
+    input, select {
       display: block;
-      font-size: 16px;
-      border: 2px solid #ccc;
-      border-radius: 10px;
-      background-color: #fef9f4;
-    }
-
-    h1 {
-      font-size: 36px;
-      border: 2px dotted #bfa570;
+      width: 80%;
+      margin: 10px auto;
       padding: 10px;
-      background-color: #f9f2e8;
-      display: inline-block;
-      margin-top: 20px;
-      position: relative;
-    }
-
-    .medal {
-      width: 40px;
-      position: absolute;
-      top: -10px;
-    }
-
-    .left-medal {
-      left: -50px;
-    }
-
-    .right-medal {
-      right: -50px;
-    }
-
-    .button {
-      background-color: #f5e2c8;
-      border: 2px solid #bfa570;
-      padding: 10px 20px;
-      margin: 10px;
       font-size: 18px;
+      text-align: center;
       border-radius: 10px;
-      cursor: pointer;
-      color: black;
+      border: 1px solid #b59f7b;
+      font-family: 'Amiri', serif;
     }
-
+    .button {
+      padding: 10px 20px;
+      font-size: 18px;
+      background-color: #f3e2c7;
+      border: 2px solid #b59f7b;
+      border-radius: 15px;
+      margin: 10px;
+      cursor: pointer;
+      font-weight: bold;
+      color: black;
+      font-family: 'Amiri', serif;
+    }
     .popup {
       display: none;
-      position: relative;
-      background-color: #fff;
-      border: 3px dashed #bfa570;
-      padding: 20px;
-      border-radius: 20px;
-      margin-top: 20px;
+      background: rgba(0, 0, 0, 0.8);
+      color: white;
+      position: fixed;
+      top: 0; left: 0;
+      width: 100%; height: 100%;
+      justify-content: center;
+      align-items: center;
+      flex-direction: column;
+      z-index: 999;
     }
-
-    .timer {
-      font-size: 28px;
-      font-weight: bold;
-      margin-top: 10px;
-    }
-
     .certificate {
       display: none;
-      background-color: #fff8f0;
-      padding: 20px;
-      border-radius: 20px;
-      border: 5px double #bfa570;
+      background-color: #fdf6e3;
+      padding: 30px;
       margin-top: 20px;
+      border: 8px double #b59f7b;
+      border-radius: 25px;
     }
-
-    .highlight {
+    .medal {
+      width: 60px;
+      vertical-align: middle;
+    }
+    .cert-title {
+      font-size: 32px;
+      font-weight: bold;
+      margin-bottom: 20px;
+      border: 2px dotted #b59f7b;
       display: inline-block;
-      background-color: #f3dfc2;
-      padding: 5px 10px;
-      border-radius: 10px;
+      padding: 10px;
+      background-color: #f7ebd6;
     }
-
-    .bottom-buttons {
-      display: none;
-      justify-content: center;
-      gap: 20px;
+    .name-highlight {
+      background-color: #f3e2c7;
+      padding: 5px 15px;
+      border-radius: 15px;
+      display: inline-block;
+      margin-bottom: 10px;
+      font-size: 26px;
+    }
+    .details {
+      font-size: 20px;
+      margin-top: 10px;
+      font-weight: bold;
+    }
+    .timer {
+      font-size: 24px;
+      margin-top: 10px;
+      font-weight: bold;
+    }
+    .share-buttons {
       margin-top: 20px;
-    }
-
-    iframe {
-      width: 300px;
-      height: 170px;
-      border-radius: 10px;
     }
   </style>
 </head>
 <body>
+  <div class="container">
+    <div class="form-section">
+      <h2>نموذج إصدار شهادة</h2>
+      <select id="gender">
+        <option value="male">الطالب</option>
+        <option value="female">الطالبة</option>
+      </select>
+      <input type="text" id="studentName" placeholder="اكتب الاسم الكامل">
+      <input type="text" id="studentClass" placeholder="الصف الدراسي">
+      <input type="text" id="schoolName" placeholder="اسم المدرسة">
+      <input type="text" id="directorName" placeholder="اسم المدير">
+      <button class="button" onclick="showPopup()">إظهار الشهادة</button>
+    </div>
 
-<div class="container">
-  <!-- نموذج الإدخال -->
-  <div class="form-section">
-    <h2>نموذج إدخال البيانات</h2>
-    <select id="gender">
-      <option value="male">الطالب</option>
-      <option value="female">الطالبة</option>
-    </select>
-    <input type="text" id="studentName" placeholder="أدخل اسم الطالب/ة">
-    <input type="text" id="grade" placeholder="الصف الدراسي">
-    <input type="text" id="schoolName" placeholder="اسم المدرسة">
-    <input type="text" id="directorName" placeholder="اسم المدير">
-    <button class="button" onclick="showPopup()">إظهار الشهادة</button>
+    <div class="popup" id="subscribePopup">
+      <p style="font-size:22px;">جاري إصدار الشهادة</p>
+      <div id="timer" class="timer">01:00</div>
+      <iframe width="300" height="200"
+        src="https://www.youtube.com/embed/JXLa6vLQhXE?autoplay=1&mute=1"
+        title="YouTube video" frameborder="0" allow="autoplay; encrypted-media"
+        allowfullscreen></iframe>
+      <div>
+        <a class="button" href="https://youtube.com/channel/UCOyD7hrUD4FH02uSaHkVd6A" target="_blank">اشترك في القناة</a>
+        <a class="button" href="https://twitter.com/forms_teachers" target="_blank">تابع على X</a>
+      </div>
+    </div>
+
+    <div class="certificate" id="certificate">
+      <div>
+        <img src="https://cdn-icons-png.flaticon.com/512/1828/1828884.png" class="medal">
+        <span class="cert-title">شهادة تقدير</span>
+        <img src="https://cdn-icons-png.flaticon.com/512/1828/1828884.png" class="medal">
+      </div>
+      <div class="name-highlight" id="nameOutput"></div>
+      <div class="details" id="classOutput"></div>
+      <p id="praiseText" style="font-size: 22px; margin-top:20px;">
+        نثمن لك جهدك العظيم، <br>
+        ونسعد بتفوقك المتميز، <br>
+        ونفتخر بإنجازاتك الباهرة.
+      </p>
+      <div class="details">
+        <span id="schoolOutput"></span>
+        <span style="float:left;" id="directorOutput"></span>
+      </div>
+    </div>
+
+    <div class="share-buttons" id="actionButtons" style="display:none;">
+      <button class="button" onclick="window.print()">طباعة</button>
+      <button class="button" onclick="downloadPDF()">تحويل إلى PDF</button>
+      <button class="button" onclick="alert('تم الحفظ!')">حفظ الصورة</button>
+    </div>
   </div>
 
-  <!-- منبثق الاشتراك -->
-  <div class="popup" id="subscribePopup">
-    <h3>قبل مشاهدة الشهادة، يُرجى الاشتراك</h3>
-    <iframe src="https://www.youtube.com/embed/JXLa6vLQhXE?autoplay=1" allow="autoplay"></iframe>
-    <div class="timer" id="timer">01:00</div>
-    <a class="button" href="https://youtube.com/channel/UCOyD7hrUD4FH02uSaHkVd6A" target="_blank">الاشتراك في القناة</a>
-    <a class="button" href="https://x.com/forms_teachers" target="_blank">الاشتراك في X</a>
-  </div>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.9.3/html2pdf.bundle.min.js"></script>
+  <script>
+    function showPopup() {
+      document.getElementById("subscribePopup").style.display = "flex";
+      let time = 60;
+      const timer = setInterval(() => {
+        const minutes = String(Math.floor(time / 60)).padStart(2, '0');
+        const seconds = String(time % 60).padStart(2, '0');
+        document.getElementById("timer").textContent = `${minutes}:${seconds}`;
+        time--;
+        if (time < 0) {
+          clearInterval(timer);
+          document.getElementById("subscribePopup").style.display = "none";
+          showCertificate();
+        }
+      }, 1000);
+    }
 
-  <!-- الشهادة -->
-  <div class="certificate" id="certificate">
-    <h1>
-      <img src="https://i.imgur.com/HRg4PvF.png" class="medal left-medal">
-      شهادة تقدير
-      <img src="https://i.imgur.com/HRg4PvF.png" class="medal right-medal">
-    </h1>
-    <h2 id="studentDisplay"></h2>
-    <p id="gradeDisplay"></p>
-    <p id="thanksMessage"></p>
-    <p><span class="highlight">اسم المدرسة:</span> <span id="schoolDisplay"></span></p>
-    <p><span class="highlight">اسم المدير:</span> <span id="directorDisplay"></span></p>
-  </div>
+    function showCertificate() {
+      const gender = document.getElementById("gender").value;
+      const name = document.getElementById("studentName").value;
+      const grade = document.getElementById("studentClass").value;
+      const school = document.getElementById("schoolName").value;
+      const director = document.getElementById("directorName").value;
 
-  <!-- الأزرار السفلية -->
-  <div class="bottom-buttons" id="finalButtons">
-    <button class="button" onclick="window.print()">طباعة</button>
-    <button class="button" onclick="alert('يتم التحويل إلى PDF')">PDF</button>
-    <button class="button" onclick="alert('مشاركة الرابط')">مشاركة</button>
-  </div>
+      const prefix = gender === 'female' ? "الطالبة :" : "الطالب :";
+      document.getElementById("nameOutput").textContent = `${prefix} ${name}`;
+      document.getElementById("classOutput").textContent = `الصف: ${grade}`;
 
-</div>
+      document.getElementById("schoolOutput").textContent = `اسم المدرسة: ${school}`;
+      document.getElementById("directorOutput").textContent = `اسم المدير: ${director}`;
 
-<script>
-  let countdown;
-  function showPopup() {
-    document.getElementById('subscribePopup').style.display = 'block';
-    let time = 60;
-    updateTimer(time);
-    countdown = setInterval(() => {
-      time--;
-      updateTimer(time);
-      if (time <= 0) {
-        clearInterval(countdown);
-        document.getElementById('subscribePopup').style.display = 'none';
-        showCertificate();
-      }
-    }, 1000);
-  }
+      const praise = gender === 'female' ?
+        "نثمن لكِ جهدكِ العظيم، <br> ونسعد بتفوقكِ المتميز، <br> ونفتخر بإنجازاتكِ الباهرة." :
+        "نثمن لك جهدك العظيم، <br> ونسعد بتفوقك المتميز، <br> ونفتخر بإنجازاتك الباهرة.";
 
-  function updateTimer(seconds) {
-    const min = String(Math.floor(seconds / 60)).padStart(2, '0');
-    const sec = String(seconds % 60).padStart(2, '0');
-    document.getElementById('timer').textContent = `${min}:${sec}`;
-  }
+      document.getElementById("praiseText").innerHTML = praise;
 
-  function showCertificate() {
-    const name = document.getElementById('studentName').value;
-    const grade = document.getElementById('grade').value;
-    const school = document.getElementById('schoolName').value;
-    const director = document.getElementById('directorName').value;
-    const gender = document.getElementById('gender').value;
+      document.getElementById("certificate").style.display = "block";
+      document.getElementById("actionButtons").style.display = "block";
+    }
 
-    const studentLabel = gender === 'male' ? 'الطالب :' : 'الطالبة :';
-    document.getElementById('studentDisplay').innerHTML = `${studentLabel} <span class="highlight">${name}</span>`;
-    document.getElementById('gradeDisplay').innerHTML = `الصف: <span class="highlight">${grade}</span>`;
-    document.getElementById('schoolDisplay').textContent = school;
-    document.getElementById('directorDisplay').textContent = director;
-
-    const thanks = gender === 'male'
-      ? "نُعبّر لك عن شكرنا وتقديرنا لما قدمته من تفوق وتميز.\nتُثمن جهودك الرائعة في هذا المسار.\nنفتخر بك دائماً."
-      : "نُعبّر لكِ عن شكرنا وتقديرنا لما قدمتهِ من تفوق وتميز.\nتُثمن جهودكِ الرائعة في هذا المسار.\nنفتخر بكِ دائماً.";
-    
-    document.getElementById('thanksMessage').innerText = thanks;
-
-    document.getElementById('certificate').style.display = 'block';
-    document.getElementById('finalButtons').style.display = 'flex';
-  }
-</script>
-
+    function downloadPDF() {
+      const element = document.getElementById("certificate");
+      html2pdf().from(element).save("شهادة_تقدير.pdf");
+    }
+  </script>
 </body>
 </html>
