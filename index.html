@@ -52,7 +52,7 @@
     }
 
     .decor {
-      font-size: 22px;
+      font-size: 24px;
       color: #8b5e3c;
       font-style: italic;
     }
@@ -90,7 +90,7 @@
     }
 
     .name {
-      font-size: 30px;
+      font-size: 36px;
       color: #6b240c;
       font-weight: bold;
       background: linear-gradient(to right, #fdf3e7, #f5e5cd);
@@ -105,7 +105,7 @@
       display: flex;
       justify-content: space-between;
       padding: 0 50px;
-      font-size: 18px;
+      font-size: 20px;
     }
 
     @media print {
@@ -162,7 +162,7 @@
       <span class="medal">🏅</span>
     </div>
 
-    <p class="decor">تُمنح هذه الشهادة لـ</p>
+    <p class="decor" id="certCongrats"></p>
     <p class="name" id="certStudentFullName"></p>
     <p class="decor">وذلك تقديراً لجهوده المبذولة وتفوقه الملحوظ خلال العام الدراسي</p>
     <p class="decor">مع أطيب الأمنيات بمزيد من النجاح والتقدم</p>
@@ -184,7 +184,13 @@
       const manager = document.getElementById("managerName").value;
       const school = document.getElementById("schoolName").value;
 
-      document.getElementById("certStudentFullName").textContent = `${type} ${name}`;
+      // تحديد صيغة الشكر بناءً على نوع الطالب
+      const congratsMessage = type === "الطالب" 
+        ? "تُمنح هذه الشهادة للطالب"
+        : "تُمنح هذه الشهادة للطالبة";
+
+      document.getElementById("certCongrats").textContent = congratsMessage;
+      document.getElementById("certStudentFullName").textContent = `${type} ، ${name}`;
       document.getElementById("certManagerName").textContent = manager;
       document.getElementById("certSchoolName").textContent = school;
 
