@@ -164,7 +164,7 @@
 
     <p class="decor" id="certCongrats"></p>
     <p class="name" id="certStudentFullName"></p>
-    <p class="decor">وذلك تقديراً لجهوده المبذولة وتفوقه الملحوظ خلال العام الدراسي</p>
+    <p class="decor" id="certEffort"></p>
     <p class="decor">مع أطيب الأمنيات بمزيد من النجاح والتقدم</p>
 
     <div class="signature">
@@ -184,13 +184,18 @@
       const manager = document.getElementById("managerName").value;
       const school = document.getElementById("schoolName").value;
 
-      // تحديد صيغة الشكر بناءً على نوع الطالب
+      // تغيير صيغة عبارات الشكر بناءً على نوع الطالب
       const congratsMessage = type === "الطالب" 
         ? "تُمنح هذه الشهادة للطالب"
         : "تُمنح هذه الشهادة للطالبة";
 
+      const effortMessage = type === "الطالب" 
+        ? "تقديراً لجهوده المبذولة وتفوقه الملحوظ خلال العام الدراسي"
+        : "تقديراً لجهودها المبذولة وتفوقها الملحوظ خلال العام الدراسي";
+
       document.getElementById("certCongrats").textContent = congratsMessage;
-      document.getElementById("certStudentFullName").textContent = `${type} ، ${name}`;
+      document.getElementById("certStudentFullName").textContent = name;
+      document.getElementById("certEffort").textContent = effortMessage;
       document.getElementById("certManagerName").textContent = manager;
       document.getElementById("certSchoolName").textContent = school;
 
