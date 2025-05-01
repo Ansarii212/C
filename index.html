@@ -3,249 +3,146 @@
 <head>
   <meta charset="UTF-8">
   <title>شهادة تقدير</title>
+  <link href="https://fonts.googleapis.com/css2?family=Amiri&display=swap" rel="stylesheet">
   <style>
     body {
+      background-color: #f5f0e6;
       font-family: 'Amiri', serif;
-      background: linear-gradient(#f5f0e6, #e0d4b7);
       margin: 0;
-      padding: 20px;
+      padding: 0;
       text-align: center;
-      border: 10px dotted #8b6e4b;
     }
 
-    h1 {
+    .certificate-container {
+      width: 800px;
+      margin: 50px auto;
+      padding: 40px;
+      background-color: #fffaf0;
+      border: 10px double #8b6e4b;
+      border-radius: 20px;
+      box-shadow: 0 0 10px rgba(0,0,0,0.1);
+      text-align: center;
+      position: relative;
+    }
+
+    .certificate-title {
       font-size: 36px;
       color: #7b4f2f;
-      background-color: #f7e7ce;
-      border: 2px solid #d9b382;
-      padding: 10px;
-      margin: 20px auto;
-      width: fit-content;
+      border: 2px dotted #d9b382;
       display: inline-block;
-      border-radius: 20px;
-      font-weight: bold;
-      position: relative;
-    }
-
-    h1::before, h1::after {
-      content: "🏅";
-      margin: 0 15px;
-      font-size: 30px;
-      position: relative;
-      top: -2px;
-    }
-
-    .form-container {
-      background-color: #fffaf0;
-      padding: 20px;
-      border-radius: 15px;
-      margin-bottom: 20px;
-      border: 3px dashed #c9a97d;
-      max-width: 600px;
-      margin-left: auto;
-      margin-right: auto;
-    }
-
-    label {
-      display: block;
-      margin: 10px 0 5px;
-      font-weight: bold;
-      font-size: 18px;
-    }
-
-    input, select {
-      width: 90%;
-      padding: 8px;
-      font-size: 16px;
-      border-radius: 10px;
-      border: 2px solid #d1b48c;
-      margin-bottom: 10px;
-    }
-
-    .buttons {
-      margin: 20px auto;
-    }
-
-    .buttons button {
-      margin: 10px 15px;
       padding: 10px 20px;
-      font-size: 16px;
-      border-radius: 12px;
-      border: none;
-      background-color: #9c7d4f;
-      color: white;
-      cursor: pointer;
-      font-family: 'Amiri', serif;
-    }
-
-    .modal {
-      display: none;
-      position: fixed;
-      z-index: 999;
-      left: 0;
-      top: 0;
-      width: 100%;
-      height: 100%;
-      background-color: rgba(0,0,0,0.8);
-      text-align: center;
-      padding-top: 100px;
-    }
-
-    .modal-content {
-      background-color: #fffaf0;
-      padding: 20px;
-      margin: auto;
       border-radius: 15px;
-      width: 80%;
-      max-width: 600px;
-    }
-
-    #timer {
-      font-size: 24px;
-      color: #8b4513;
-      margin-top: 10px;
-      font-weight: bold;
-    }
-
-    .certificate {
-      display: none;
-      background-color: white;
-      margin: auto;
-      padding: 30px;
-      border-radius: 15px;
-      max-width: 800px;
-      font-size: 22px;
-      font-weight: bold;
-      font-family: 'Amiri', serif;
-      color: #5a3e1b;
-    }
-
-    .certificate h2 {
-      font-size: 34px;
-      margin-bottom: 10px;
       position: relative;
     }
 
-    .certificate .name-line {
-      font-size: 26px;
+    .certificate-title::before,
+    .certificate-title::after {
+      content: "🏅";
+      font-size: 24px;
+      position: absolute;
+      top: 50%;
+      transform: translateY(-50%);
+    }
+
+    .certificate-title::before {
+      right: 100%;
+      margin-right: 10px;
+    }
+
+    .certificate-title::after {
+      left: 100%;
+      margin-left: 10px;
+    }
+
+    .recipient-name {
+      margin-top: 20px;
+      font-size: 28px;
       background-color: #f3e3c3;
-      margin: 10px 0;
-      padding: 10px;
+      display: inline-block;
+      padding: 10px 20px;
       border-radius: 10px;
+    }
+
+    .certificate-body {
+      margin-top: 30px;
+      font-size: 20px;
+      color: #5a3e1b;
+      line-height: 1.6;
+      font-weight: bold;
     }
 
     .footer {
-      display: flex;
-      justify-content: space-between;
       margin-top: 40px;
-      padding: 0 40px;
+      display: flex;
+      justify-content: space-around;
     }
 
     .footer div {
+      background-color: #f3e3c3;
+      padding: 10px 20px;
+      border-radius: 10px;
+      width: 200px;
+      text-align: center;
       font-size: 18px;
     }
 
-    .share-buttons {
-      margin-top: 20px;
-      display: none;
+    .buttons {
+      margin-top: 30px;
+    }
+
+    button {
+      padding: 10px 20px;
+      margin: 10px;
+      font-size: 16px;
+      background-color: #f3e3c3;
+      border: 2px solid #bba47f;
+      border-radius: 15px;
+      cursor: pointer;
+      font-family: 'Amiri', serif;
+      transition: 0.3s ease;
+    }
+
+    button:hover {
+      background-color: #e5d2b6;
     }
   </style>
 </head>
 <body>
 
-  <div class="form-container">
-    <h1>شهادة تقدير</h1>
-
-    <label for="gender">اختر النوع:</label>
-    <select id="gender">
-      <option value="طالب">طالب</option>
-      <option value="طالبة">طالبة</option>
-    </select>
-
-    <label for="studentName">اسم الطالب/ة:</label>
-    <input type="text" id="studentName" placeholder="مثال: محمد أحمد">
-
-    <label for="managerName">اسم المدير:</label>
-    <input type="text" id="managerName" placeholder="مثال: أحمد عبدالعزيز">
-
-    <label for="schoolName">اسم المدرسة:</label>
-    <input type="text" id="schoolName" placeholder="مثال: مدرسة النور">
-
-    <div class="buttons">
-      <button onclick="openModal()">عرض الشهادة</button>
+  <div class="certificate-container" id="certificate">
+    <div class="certificate-title">شهادة تقدير</div>
+    <div class="recipient-name">الطالبة: فاطمة الزهراء</div>
+    <div class="certificate-body">
+      نشكر جهودكِ وتفوقكِ ونبارك لكِ هذا الإنجاز الرائع.<br>
+      دمتِ نموذجًا للتميز والإبداع والطموح.<br>
+      ونتمنى لكِ مزيدًا من النجاح في المستقبل.
+    </div>
+    <div class="footer">
+      <div>اسم المدرسة: مدرسة النور</div>
+      <div>اسم المدير: أحمد عبدالعزيز</div>
     </div>
   </div>
 
-  <div id="subscriptionModal" class="modal">
-    <div class="modal-content">
-      <h2>الرجاء مشاهدة الفيديو والاشتراك</h2>
-      <iframe width="100%" height="315"
-        src="https://www.youtube.com/embed/JXLa6vLQhXE?autoplay=1"
-        frameborder="0" allow="autoplay; encrypted-media" allowfullscreen></iframe>
-      <p>اشترك في القناة: <a href="https://youtube.com/channel/UCOyD7hrUD4FH02uSaHkVd6A" target="_blank">اضغط هنا</a></p>
-      <p>تابعنا على X: <a href="https://x.com/forms_teachers" target="_blank">@forms_teachers</a></p>
-      <div id="timer">01:00</div>
-    </div>
-  </div>
-
-  <div id="certificate" class="certificate"></div>
-
-  <div class="share-buttons" id="shareBtns">
+  <div class="buttons">
+    <button onclick="downloadCertificate()">حفظ الشهادة كصورة</button>
     <button onclick="window.print()">طباعة</button>
-    <button onclick="downloadPDF()">تحويل إلى PDF</button>
-    <button onclick="navigator.share ? navigator.share({title:'شهادة تقدير', url:window.location.href}) : alert('ميزة المشاركة غير مدعومة')">مشاركة</button>
+    <button onclick="shareCertificate()">مشاركة</button>
   </div>
 
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
   <script>
-    let countdown = 60;
-    let interval;
-
-    function openModal() {
-      document.getElementById("subscriptionModal").style.display = "block";
-      interval = setInterval(updateTimer, 1000);
+    function downloadCertificate() {
+      const element = document.getElementById("certificate");
+      html2canvas(element).then(canvas => {
+        const link = document.createElement("a");
+        link.download = "شهادة_تقدير.png";
+        link.href = canvas.toDataURL("image/png");
+        link.click();
+      });
     }
 
-    function updateTimer() {
-      countdown--;
-      const minutes = String(Math.floor(countdown / 60)).padStart(2, '0');
-      const seconds = String(countdown % 60).padStart(2, '0');
-      document.getElementById("timer").textContent = `${minutes}:${seconds}`;
-
-      if (countdown <= 0) {
-        clearInterval(interval);
-        document.getElementById("subscriptionModal").style.display = "none";
-        showCertificate();
-      }
-    }
-
-    function showCertificate() {
-      const name = document.getElementById("studentName").value;
-      const manager = document.getElementById("managerName").value;
-      const school = document.getElementById("schoolName").value;
-      const gender = document.getElementById("gender").value;
-
-      const thanksText = gender === "طالب"
-        ? "نشكرك على اجتهادك وتفوقك ونبارك لك هذا الإنجاز المتميز.\nدمت مثالاً للطموح والإبداع والتميز."
-        : "نشكر جهودكِ وتفوقكِ ونبارك لكِ هذا الإنجاز الرائع.\nدمتِ نموذجًا للتميز والإبداع والطموح.";
-
-      const title = gender === "طالب" ? "الطالب:" : "الطالبة:";
-
-      document.getElementById("certificate").innerHTML = `
-        <h2>شهادة تقدير</h2>
-        <div class="name-line">${title} ${name}</div>
-        <p style="white-space: pre-wrap; font-weight: bold;">${thanksText}</p>
-        <div class="footer">
-          <div>اسم المدرسة: ${school}</div>
-          <div>اسم المدير: ${manager}</div>
-        </div>
-      `;
-
-      document.getElementById("certificate").style.display = "block";
-      document.getElementById("shareBtns").style.display = "block";
-    }
-
-    function downloadPDF() {
-      alert("لتحويل إلى PDF يمكنك استخدام ميزة 'طباعة' ثم اختيار 'حفظ كملف PDF'");
+    function shareCertificate() {
+      alert("انسخ رابط الصفحة لمشاركة الشهادة، أو احفظها كصورة وشاركها.");
     }
   </script>
 
