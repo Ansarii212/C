@@ -1,301 +1,238 @@
 <!DOCTYPE html>
-<html lang="ar" dir="rtl">
+<html lang="ar">
 <head>
   <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>شهادة تقدير</title>
-  <link href="https://fonts.googleapis.com/css2?family=Amiri&display=swap" rel="stylesheet">
   <style>
     body {
       font-family: 'Amiri', serif;
-      background: #f9f2e4;
+      background-color: #f4f4f4;
       margin: 0;
       padding: 0;
-      border: 10px dotted #c1a875;
-      box-sizing: border-box;
     }
 
     .container {
       max-width: 900px;
-      margin: auto;
+      margin: 0 auto;
+      background-color: #fff;
+      padding: 20px;
+      border-radius: 10px;
+      box-shadow: 0 0 15px rgba(0, 0, 0, 0.1);
+      border: 2px dotted #c2a16c;
+    }
+
+    .header {
+      text-align: center;
+      font-size: 36px;
+      font-weight: bold;
+      color: #c2a16c;
+      position: relative;
       padding: 20px;
     }
 
-    .input-section {
-      background: #f2e0b9;
-      border: 2px dotted #d4af37;
-      padding: 30px;
-      border-radius: 20px;
-      text-align: center;
-      margin-bottom: 20px;
-      position: relative;
-    }
-
-    .input-section h2 {
-      font-size: 32px;
-      background: linear-gradient(to right, #fcebb9, #e8c98b);
-      padding: 10px 20px;
-      display: inline-block;
-      border-radius: 12px;
-      border: 2px dashed #c0932b;
-      margin-bottom: 20px;
-      position: relative;
-      color: #7c5a0c;
-    }
-
-    .input-section h2::before,
-    .input-section h2::after {
-      content: '🏅';
-      font-size: 24px;
+    .header::before,
+    .header::after {
+      content: '🎖️';
+      font-size: 40px;
       position: absolute;
       top: 50%;
       transform: translateY(-50%);
     }
 
-    .input-section h2::before {
-      right: -35px;
+    .header::before {
+      left: -50px;
     }
 
-    .input-section h2::after {
-      left: -35px;
+    .header::after {
+      right: -50px;
     }
 
-    .form-group {
-      margin: 10px 0;
-      text-align: right;
+    .form-section {
+      margin-top: 30px;
     }
 
-    .form-group label {
+    .form-section label {
       font-size: 18px;
-      margin-right: 5px;
+      margin-bottom: 10px;
       display: block;
     }
 
-    .form-group input,
-    .form-group select {
+    .form-section input {
       width: 100%;
       padding: 10px;
-      font-size: 18px;
-      border-radius: 8px;
-      border: 1px solid #ccc;
-      font-family: inherit;
-    }
-
-    .btn-section {
-      text-align: center;
-      margin: 20px 0;
-    }
-
-    .btn {
-      padding: 10px 25px;
-      font-size: 18px;
-      background: #d4af37;
-      color: white;
-      border: none;
-      border-radius: 10px;
-      margin: 10px;
-      cursor: pointer;
-      font-family: inherit;
-    }
-
-    .certificate {
-      background-color: #fff8e1;
-      border: 8px double #8b6f24;
-      border-radius: 20px;
-      padding: 40px;
-      text-align: center;
-      box-shadow: 0 0 10px rgba(0,0,0,0.2);
-    }
-
-    .certificate .title {
-      font-size: 36px;
-      color: #8b6f24;
-      margin-bottom: 20px;
-      border: 3px solid #d4af37;
-      padding: 10px 30px;
-      border-radius: 12px;
-      display: inline-block;
-      background: #fff3c0;
-      position: relative;
-    }
-
-    .certificate .title::before,
-    .certificate .title::after {
-      content: '🏅';
-      font-size: 24px;
-      position: absolute;
-      top: 50%;
-      transform: translateY(-50%);
-    }
-
-    .certificate .title::before {
-      right: -30px;
-    }
-
-    .certificate .title::after {
-      left: -30px;
-    }
-
-    .certificate .student-name {
-      font-size: 30px;
-      background: #f2d6a3;
-      display: inline-block;
-      padding: 10px 20px;
       margin: 10px 0;
-      border-radius: 10px;
-      color: #5b3d00;
+      border: 1px solid #ccc;
+      border-radius: 5px;
+      font-size: 16px;
     }
 
-    .certificate .message {
-      font-size: 22px;
-      color: #444;
-      margin: 15px 0;
-      line-height: 1.8;
+    .form-section select {
+      width: 100%;
+      padding: 10px;
+      margin: 10px 0;
+      border: 1px solid #ccc;
+      border-radius: 5px;
+      font-size: 16px;
     }
 
-    .certificate .footer {
+    .buttons {
+      display: flex;
+      justify-content: space-between;
       margin-top: 30px;
+    }
+
+    .buttons button {
+      padding: 15px 30px;
       font-size: 18px;
-      color: #222;
+      border: none;
+      background-color: #c2a16c;
+      color: #fff;
+      cursor: pointer;
+      border-radius: 5px;
+      transition: background-color 0.3s ease;
     }
 
-    .output {
-      margin-top: 30px;
-      text-align: center;
+    .buttons button:hover {
+      background-color: #a28553;
     }
 
-    #actionButtons {
+    .popup {
       display: none;
-      margin-top: 20px;
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background-color: rgba(0, 0, 0, 0.5);
+      justify-content: center;
+      align-items: center;
+      z-index: 9999;
+    }
+
+    .popup-content {
+      background-color: #fff;
+      padding: 20px;
+      border-radius: 10px;
       text-align: center;
+      width: 400px;
+      box-shadow: 0 0 15px rgba(0, 0, 0, 0.1);
+    }
+
+    .popup-content h3 {
+      font-size: 20px;
+      color: #333;
+    }
+
+    .popup-content button {
+      background-color: #c2a16c;
+      color: #fff;
+      font-size: 18px;
+      padding: 10px;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+      margin-top: 20px;
+    }
+
+    .popup-content button:hover {
+      background-color: #a28553;
+    }
+
+    iframe {
+      width: 100%;
+      height: 200px;
+      margin-top: 20px;
+      border: none;
     }
   </style>
 </head>
 <body>
+
   <div class="container">
-    <!-- إدخال البيانات -->
-    <div class="input-section">
-      <h2>بيانات الشهادة</h2>
-      <div class="form-group">
-        <label for="studentType">اختر النوع</label>
-        <select id="studentType">
-          <option value="الطالب">الطالب</option>
-          <option value="الطالبة">الطالبة</option>
-        </select>
-      </div>
-      <div class="form-group">
-        <label for="studentName">اسم الطالب / الطالبة</label>
-        <input type="text" id="studentName" placeholder="أدخل الاسم">
-      </div>
-      <div class="form-group">
-        <label for="schoolName">اسم المدرسة</label>
-        <input type="text" id="schoolName" placeholder="مدرستي الجميلة">
-      </div>
-      <div class="form-group">
-        <label for="managerName">اسم المدير / المديرة</label>
-        <input type="text" id="managerName" placeholder="المدير أحمد">
-      </div>
+    <div class="header">شهادة تقدير</div>
+    <div class="form-section">
+      <label for="student-name">اسم الطالب:</label>
+      <input type="text" id="student-name" placeholder="أدخل اسم الطالب">
+
+      <label for="school-name">اسم المدرسة:</label>
+      <input type="text" id="school-name" placeholder="أدخل اسم المدرسة">
+
+      <label for="principal-name">اسم المدير:</label>
+      <input type="text" id="principal-name" placeholder="أدخل اسم المدير">
+
+      <label for="gender">النوع:</label>
+      <select id="gender">
+        <option value="male">الطالب</option>
+        <option value="female">الطالبة</option>
+      </select>
     </div>
 
-    <!-- الأزرار -->
-    <div class="btn-section">
-      <button class="btn" onclick="generateCertificate()">إنشاء الشهادة</button>
-    </div>
-
-    <!-- الشهادة -->
-    <div class="output" id="certificateOutput"></div>
-
-    <!-- أزرار العمليات -->
-    <div id="actionButtons">
-      <button class="btn" onclick="print()">طباعة</button>
-      <button class="btn" onclick="downloadImage()">حفظ كصورة</button>
-      <button class="btn" onclick="downloadPDF()">تحويل إلى PDF</button>
-      <button class="btn" onclick="share()">مشاركة</button>
+    <div class="buttons">
+      <button onclick="showPopup()">إظهار الشهادة</button>
+      <button onclick="savePDF()">حفظ PDF</button>
+      <button onclick="printCertificate()">طباعة</button>
     </div>
   </div>
 
-  <script src="https://cdn.jsdelivr.net/npm/html2canvas@1.4.1/dist/html2canvas.min.js"></script>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+  <div id="popup" class="popup">
+    <div class="popup-content">
+      <h3>يرجى الاشتراك أو مشاهدة الفيديو قبل المتابعة</h3>
+      <iframe src="https://www.youtube.com/embed/JXLa6vLQhXE?autoplay=1" frameborder="0"></iframe>
+      <div>
+        <button onclick="subscribeYouTube()">اشترك في قناتي على يوتيوب</button>
+        <button onclick="goToX()">تابعني على X</button>
+        <button onclick="closePopup()">إغلاق</button>
+      </div>
+    </div>
+  </div>
+
   <script>
-    function generateCertificate() {
-      const studentType = document.getElementById('studentType').value;
-      const name = document.getElementById('studentName').value.trim();
-      const school = document.getElementById('schoolName').value.trim();
-      const manager = document.getElementById('managerName').value.trim();
+    let timer;
+    function showPopup() {
+      document.getElementById('popup').style.display = 'flex';
+      disableButtons(true);
 
-      if (!name || !school || !manager) {
-        alert("يرجى ملء جميع الحقول.");
-        return;
-      }
-
-      let appreciationMessage = studentType === 'الطالبة'
-        ? `تعبيراً عن تقديرنا لتفوقها الدراسي وتميزها المستمر،
-        وحرصها على المشاركة الفعالة والإبداع،
-        وتمتعها بروح التعاون والاجتهاد في جميع الأنشطة.`
-        : `تعبيراً عن تقديرنا لتفوقه الدراسي وتميزه المستمر،
-        وحرصه على المشاركة الفعالة والإبداع،
-        وتمتعه بروح التعاون والاجتهاد في جميع الأنشطة.`;
-
-      const html = `
-        <div class="certificate" id="certificate">
-          <div class="title">شهادة تقدير</div>
-          <div class="message">تُمنح هذه الشهادة إلى</div>
-          <div class="student-name">${studentType} : ${name}</div>
-          <div class="message">${appreciationMessage}</div>
-          <div class="footer">
-            مدير المدرسة: ${manager}<br>
-            المدرسة: ${school}
-          </div>
-        </div>
-      `;
-
-      document.getElementById('certificateOutput').innerHTML = html;
-      document.getElementById('actionButtons').style.display = 'block';
+      timer = setTimeout(function() {
+        enableButtons(true);
+        closePopup();
+      }, 60000); // 60 seconds timeout
     }
 
-    function print() {
-      const printContent = document.getElementById('certificate').outerHTML;
-      const win = window.open('', '', 'height=700,width=900');
-      win.document.write('<html><head><title>طباعة الشهادة</title>');
-      win.document.write('<link href="https://fonts.googleapis.com/css2?family=Amiri&display=swap" rel="stylesheet">');
-      win.document.write('</head><body style="font-family:Amiri,serif;">');
-      win.document.write(printContent);
-      win.document.write('</body></html>');
-      win.document.close();
-      win.print();
+    function closePopup() {
+      document.getElementById('popup').style.display = 'none';
     }
 
-    function downloadImage() {
-      html2canvas(document.getElementById('certificate')).then(canvas => {
-        const link = document.createElement('a');
-        link.download = 'شهادة_تقدير.png';
-        link.href = canvas.toDataURL();
-        link.click();
+    function disableButtons(disable) {
+      const buttons = document.querySelectorAll('.buttons button');
+      buttons.forEach(button => {
+        button.disabled = disable;
       });
     }
 
-    async function downloadPDF() {
-      const { jsPDF } = window.jspdf;
-      const canvas = await html2canvas(document.getElementById('certificate'));
-      const imgData = canvas.toDataURL('image/png');
-      const pdf = new jsPDF();
-      const imgProps = pdf.getImageProperties(imgData);
-      const pdfWidth = pdf.internal.pageSize.getWidth();
-      const pdfHeight = (imgProps.height * pdfWidth) / imgProps.width;
-      pdf.addImage(imgData, 'PNG', 0, 10, pdfWidth, pdfHeight);
-      pdf.save('شهادة_تقدير.pdf');
+    function enableButtons(enable) {
+      const buttons = document.querySelectorAll('.buttons button');
+      buttons.forEach(button => {
+        button.disabled = !enable;
+      });
     }
 
-    function share() {
-      if (navigator.share) {
-        navigator.share({
-          title: 'شهادة تقدير',
-          text: 'احصل على شهادة تقدير مخصصة',
-          url: window.location.href
-        });
-      } else {
-        alert('المشاركة غير مدعومة في هذا المتصفح.');
-      }
+    function subscribeYouTube() {
+      window.open("https://youtube.com/channel/UCOyD7hrUD4FH02uSaHkVd6A", "_blank");
+    }
+
+    function goToX() {
+      window.open("https://x.com/ansarii212", "_blank");
+    }
+
+    function savePDF() {
+      alert("سيتم حفظ الشهادة كملف PDF قريبًا.");
+    }
+
+    function printCertificate() {
+      window.print();
     }
   </script>
+
 </body>
 </html>
