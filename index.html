@@ -1,214 +1,66 @@
 <!DOCTYPE html>
 <html lang="ar" dir="rtl">
 <head>
-  <meta charset="UTF-8">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>شهادة تقدير</title>
-  <link href="https://fonts.googleapis.com/css2?family=Amiri&display=swap" rel="stylesheet">
-  <style>
-    body {
-      font-family: 'Amiri', serif;
-      background: #f5f0e6;
-      margin: 0;
-      padding: 0;
-      text-align: center;
-    }
-    .container {
-      border: 8px double #b59f7b;
-      margin: 20px auto;
-      padding: 20px;
-      max-width: 800px;
-      background-color: #fffaf0;
-      border-radius: 20px;
-    }
-    .form-section {
-      background-color: #f3e2c7;
-      padding: 20px;
-      border: 2px dotted #a08662;
-      margin-bottom: 20px;
-    }
-    .form-section h2 {
-      font-size: 26px;
-      margin-bottom: 20px;
-    }
-    input, select {
-      display: block;
-      width: 80%;
-      margin: 10px auto;
-      padding: 10px;
-      font-size: 18px;
-      text-align: center;
-      border-radius: 10px;
-      border: 1px solid #b59f7b;
-      font-family: 'Amiri', serif;
-    }
-    .button {
-      padding: 10px 20px;
-      font-size: 18px;
-      background-color: #f3e2c7;
-      border: 2px solid #b59f7b;
-      border-radius: 15px;
-      margin: 10px;
-      cursor: pointer;
-      font-weight: bold;
-      color: black;
-      font-family: 'Amiri', serif;
-    }
-    .popup {
-      display: none;
-      background: rgba(0, 0, 0, 0.8);
-      color: white;
-      position: fixed;
-      top: 0; left: 0;
-      width: 100%; height: 100%;
-      justify-content: center;
-      align-items: center;
-      flex-direction: column;
-      z-index: 999;
-    }
-    .certificate {
-      display: none;
-      background-color: #fdf6e3;
-      padding: 30px;
-      margin-top: 20px;
-      border: 8px double #b59f7b;
-      border-radius: 25px;
-    }
-    .medal {
-      width: 60px;
-      vertical-align: middle;
-    }
-    .cert-title {
-      font-size: 32px;
-      font-weight: bold;
-      margin-bottom: 20px;
-      border: 2px dotted #b59f7b;
-      display: inline-block;
-      padding: 10px;
-      background-color: #f7ebd6;
-    }
-    .name-highlight {
-      background-color: #f3e2c7;
-      padding: 5px 15px;
-      border-radius: 15px;
-      display: inline-block;
-      margin-bottom: 10px;
-      font-size: 26px;
-    }
-    .details {
-      font-size: 20px;
-      margin-top: 10px;
-      font-weight: bold;
-    }
-    .timer {
-      font-size: 24px;
-      margin-top: 10px;
-      font-weight: bold;
-    }
-    .share-buttons {
-      margin-top: 20px;
-    }
-  </style>
+  <link href="https://fonts.googleapis.com/css2?family=Amiri+Quran&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css" />
 </head>
 <body>
   <div class="container">
+    <!-- نموذج إدخال البيانات -->
     <div class="form-section">
-      <h2>نموذج إصدار شهادة</h2>
+      <h2>بيانات الشهادة</h2>
+      <label>النوع:</label>
       <select id="gender">
-        <option value="male">الطالب</option>
-        <option value="female">الطالبة</option>
+        <option value="طالب">الطالب</option>
+        <option value="طالبة">الطالبة</option>
       </select>
-      <input type="text" id="studentName" placeholder="اكتب الاسم الكامل">
-      <input type="text" id="studentClass" placeholder="الصف الدراسي">
-      <input type="text" id="schoolName" placeholder="اسم المدرسة">
-      <input type="text" id="directorName" placeholder="اسم المدير">
-      <button class="button" onclick="showPopup()">إظهار الشهادة</button>
+      <input type="text" id="studentName" placeholder="ادخل الاسم هنا">
+      <input type="text" id="studentClass" placeholder="ادخل الصف">
+      <input type="text" id="schoolName" placeholder="ادخل اسم المدرسة">
+      <input type="text" id="directorName" placeholder="ادخل اسم المدير">
+      <button onclick="showPopup()">عرض الشهادة</button>
     </div>
 
-    <div class="popup" id="subscribePopup">
-      <p style="font-size:22px;">جاري إصدار الشهادة</p>
-      <div id="timer" class="timer">01:00</div>
-      <iframe width="300" height="200"
-        src="https://www.youtube.com/embed/JXLa6vLQhXE?autoplay=1&mute=1"
-        title="YouTube video" frameborder="0" allow="autoplay; encrypted-media"
-        allowfullscreen></iframe>
-      <div>
-        <a class="button" href="https://youtube.com/channel/UCOyD7hrUD4FH02uSaHkVd6A" target="_blank">اشترك في القناة</a>
-        <a class="button" href="https://twitter.com/forms_teachers" target="_blank">تابع على X</a>
-      </div>
+    <!-- المنبثق -->
+    <div class="popup" id="popup">
+      <h3>جاري إصدار الشهادة</h3>
+      <div id="countdown">01:00</div>
+      <p>يرجى الاشتراك:</p>
+      <a class="social-btn" href="https://youtube.com/channel/UCOyD7hrUD4FH02uSaHkVd6A" target="_blank">الاشتراك في القناة</a>
+      <a class="social-btn" href="https://x.com/forms_teachers" target="_blank">الاشتراك في X</a>
     </div>
 
-    <div class="certificate" id="certificate">
-      <div>
-        <img src="https://cdn-icons-png.flaticon.com/512/1828/1828884.png" class="medal">
-        <span class="cert-title">شهادة تقدير</span>
-        <img src="https://cdn-icons-png.flaticon.com/512/1828/1828884.png" class="medal">
+    <!-- الشهادة -->
+    <div class="certificate" id="certificate" style="display:none;">
+      <div class="title-box">
+        <img src="https://cdn-icons-png.flaticon.com/128/1828/1828884.png" class="medal" />
+        <h1>شهادة تقدير</h1>
+        <img src="https://cdn-icons-png.flaticon.com/128/1828/1828884.png" class="medal" />
       </div>
-      <div class="name-highlight" id="nameOutput"></div>
-      <div class="details" id="classOutput"></div>
-      <p id="praiseText" style="font-size: 22px; margin-top:20px;">
-        نثمن لك جهدك العظيم، <br>
-        ونسعد بتفوقك المتميز، <br>
-        ونفتخر بإنجازاتك الباهرة.
+      <h2 id="studentLine"></h2>
+      <h3 id="classLine"></h3>
+      <p class="thanks">
+        لما قدمه من تفوق وجهد متواصل <br>
+        ومثابرته في دراسته وأخلاقه العالية <br>
+        وحرصه على النجاح والتميز
       </p>
-      <div class="details">
-        <span id="schoolOutput"></span>
-        <span style="float:left;" id="directorOutput"></span>
+      <div class="footer">
+        <div class="school"><strong>اسم المدرسة:</strong> <span id="schoolText"></span></div>
+        <div class="director"><strong>اسم المدير:</strong> <span id="directorText"></span></div>
       </div>
     </div>
 
-    <div class="share-buttons" id="actionButtons" style="display:none;">
-      <button class="button" onclick="window.print()">طباعة</button>
-      <button class="button" onclick="downloadPDF()">تحويل إلى PDF</button>
-      <button class="button" onclick="alert('تم الحفظ!')">حفظ الصورة</button>
+    <!-- أزرار الحفظ -->
+    <div class="actions" id="finalButtons" style="display:none;">
+      <button onclick="downloadImage()">حفظ الصورة</button>
+      <button onclick="downloadPDF()">تحويل إلى PDF</button>
+      <button onclick="printCert()">طباعة</button>
+      <button onclick="shareCert()">مشاركة</button>
     </div>
   </div>
-
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.9.3/html2pdf.bundle.min.js"></script>
-  <script>
-    function showPopup() {
-      document.getElementById("subscribePopup").style.display = "flex";
-      let time = 60;
-      const timer = setInterval(() => {
-        const minutes = String(Math.floor(time / 60)).padStart(2, '0');
-        const seconds = String(time % 60).padStart(2, '0');
-        document.getElementById("timer").textContent = `${minutes}:${seconds}`;
-        time--;
-        if (time < 0) {
-          clearInterval(timer);
-          document.getElementById("subscribePopup").style.display = "none";
-          showCertificate();
-        }
-      }, 1000);
-    }
-
-    function showCertificate() {
-      const gender = document.getElementById("gender").value;
-      const name = document.getElementById("studentName").value;
-      const grade = document.getElementById("studentClass").value;
-      const school = document.getElementById("schoolName").value;
-      const director = document.getElementById("directorName").value;
-
-      const prefix = gender === 'female' ? "الطالبة :" : "الطالب :";
-      document.getElementById("nameOutput").textContent = `${prefix} ${name}`;
-      document.getElementById("classOutput").textContent = `الصف: ${grade}`;
-
-      document.getElementById("schoolOutput").textContent = `اسم المدرسة: ${school}`;
-      document.getElementById("directorOutput").textContent = `اسم المدير: ${director}`;
-
-      const praise = gender === 'female' ?
-        "نثمن لكِ جهدكِ العظيم، <br> ونسعد بتفوقكِ المتميز، <br> ونفتخر بإنجازاتكِ الباهرة." :
-        "نثمن لك جهدك العظيم، <br> ونسعد بتفوقك المتميز، <br> ونفتخر بإنجازاتك الباهرة.";
-
-      document.getElementById("praiseText").innerHTML = praise;
-
-      document.getElementById("certificate").style.display = "block";
-      document.getElementById("actionButtons").style.display = "block";
-    }
-
-    function downloadPDF() {
-      const element = document.getElementById("certificate");
-      html2pdf().from(element).save("شهادة_تقدير.pdf");
-    }
-  </script>
+  <script src="script.js"></script>
 </body>
 </html>
