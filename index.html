@@ -1,66 +1,224 @@
 <!DOCTYPE html>
 <html lang="ar" dir="rtl">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <meta charset="UTF-8">
   <title>شهادة تقدير</title>
-  <link href="https://fonts.googleapis.com/css2?family=Amiri+Quran&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="style.css" />
+  <style>
+    body {
+      font-family: 'Amiri', serif;
+      background: #f5f0e6;
+      margin: 0;
+      padding: 0;
+      text-align: center;
+      color: #4b2e2e;
+    }
+
+    .certificate-container {
+      border: 6px double #8b5e3c;
+      border-radius: 20px;
+      margin: 20px auto;
+      padding: 40px;
+      background: #fffaf0;
+      width: 90%;
+      max-width: 800px;
+    }
+
+    h1.title {
+      font-size: 40px;
+      margin: 10px 0;
+      position: relative;
+      border: 2px dotted #a67c52;
+      padding: 10px;
+      display: inline-block;
+      background-color: #fcebd2;
+    }
+
+    .medal {
+      width: 40px;
+      vertical-align: middle;
+      margin: 0 10px;
+    }
+
+    .input-section {
+      background-color: #f3e5d1;
+      padding: 20px;
+      border-radius: 15px;
+      margin: 20px auto;
+      width: 90%;
+      max-width: 600px;
+      border: 2px dotted #a67c52;
+    }
+
+    .input-section input, select {
+      display: block;
+      margin: 10px auto;
+      padding: 10px;
+      width: 90%;
+      font-size: 16px;
+      text-align: center;
+      border-radius: 10px;
+      border: 1px solid #a67c52;
+    }
+
+    .btn {
+      background-color: #f5d7a1;
+      color: #000;
+      padding: 10px 20px;
+      margin: 10px 5px;
+      border: 2px solid #8b5e3c;
+      border-radius: 12px;
+      cursor: pointer;
+      font-size: 16px;
+    }
+
+    #popup {
+      display: none;
+      background-color: #f9f1e5;
+      border-radius: 15px;
+      padding: 20px;
+      margin: 20px auto;
+      width: 90%;
+      max-width: 500px;
+      border: 2px solid #8b5e3c;
+    }
+
+    #timer-label {
+      font-size: 20px;
+      margin-bottom: 10px;
+    }
+
+    #timer {
+      font-size: 28px;
+      font-weight: bold;
+    }
+
+    #final-certificate {
+      display: none;
+      margin: 30px auto;
+    }
+
+    .recipient {
+      font-size: 28px;
+      font-weight: bold;
+      background-color: #fcebd2;
+      display: inline-block;
+      padding: 10px 20px;
+      border-radius: 10px;
+      margin: 10px 0;
+    }
+
+    .grade {
+      font-size: 22px;
+      margin-top: 5px;
+    }
+
+    .school-director {
+      display: flex;
+      justify-content: space-between;
+      margin-top: 40px;
+      font-weight: bold;
+    }
+
+    .thanks {
+      font-size: 20px;
+      margin-top: 20px;
+      line-height: 1.7;
+    }
+
+    .footer-buttons {
+      margin-top: 20px;
+    }
+  </style>
 </head>
 <body>
-  <div class="container">
-    <!-- نموذج إدخال البيانات -->
-    <div class="form-section">
-      <h2>بيانات الشهادة</h2>
-      <label>النوع:</label>
-      <select id="gender">
-        <option value="طالب">الطالب</option>
-        <option value="طالبة">الطالبة</option>
-      </select>
-      <input type="text" id="studentName" placeholder="ادخل الاسم هنا">
-      <input type="text" id="studentClass" placeholder="ادخل الصف">
-      <input type="text" id="schoolName" placeholder="ادخل اسم المدرسة">
-      <input type="text" id="directorName" placeholder="ادخل اسم المدير">
-      <button onclick="showPopup()">عرض الشهادة</button>
-    </div>
 
-    <!-- المنبثق -->
-    <div class="popup" id="popup">
-      <h3>جاري إصدار الشهادة</h3>
-      <div id="countdown">01:00</div>
-      <p>يرجى الاشتراك:</p>
-      <a class="social-btn" href="https://youtube.com/channel/UCOyD7hrUD4FH02uSaHkVd6A" target="_blank">الاشتراك في القناة</a>
-      <a class="social-btn" href="https://x.com/forms_teachers" target="_blank">الاشتراك في X</a>
-    </div>
+  <div class="input-section">
+    <h2>بيانات الشهادة</h2>
+    <select id="type">
+      <option value="الطالب">الطالب</option>
+      <option value="الطالبة">الطالبة</option>
+    </select>
+    <input type="text" id="name" placeholder="أدخل الاسم هنا">
+    <input type="text" id="grade" placeholder="أدخل الصف">
+    <input type="text" id="school" placeholder="أدخل اسم المدرسة">
+    <input type="text" id="director" placeholder="أدخل اسم المدير">
+    <button class="btn" onclick="showPopup()">عرض الشهادة</button>
+  </div>
 
-    <!-- الشهادة -->
-    <div class="certificate" id="certificate" style="display:none;">
-      <div class="title-box">
-        <img src="https://cdn-icons-png.flaticon.com/128/1828/1828884.png" class="medal" />
-        <h1>شهادة تقدير</h1>
-        <img src="https://cdn-icons-png.flaticon.com/128/1828/1828884.png" class="medal" />
-      </div>
-      <h2 id="studentLine"></h2>
-      <h3 id="classLine"></h3>
-      <p class="thanks">
-        لما قدمه من تفوق وجهد متواصل <br>
-        ومثابرته في دراسته وأخلاقه العالية <br>
-        وحرصه على النجاح والتميز
-      </p>
-      <div class="footer">
-        <div class="school"><strong>اسم المدرسة:</strong> <span id="schoolText"></span></div>
-        <div class="director"><strong>اسم المدير:</strong> <span id="directorText"></span></div>
-      </div>
-    </div>
+  <div id="popup">
+    <div id="timer-label">جاري إصدار الشهادة</div>
+    <div id="timer">01:00</div>
+    <p>يرجى الاشتراك:</p>
+    <a class="btn" href="https://youtube.com/channel/UCOyD7hrUD4FH02uSaHkVd6A?sub_confirmation=1" target="_blank">الاشتراك في القناة</a>
+    <a class="btn" href="https://x.com/forms_teachers" target="_blank">الاشتراك في X</a>
+  </div>
 
-    <!-- أزرار الحفظ -->
-    <div class="actions" id="finalButtons" style="display:none;">
-      <button onclick="downloadImage()">حفظ الصورة</button>
-      <button onclick="downloadPDF()">تحويل إلى PDF</button>
-      <button onclick="printCert()">طباعة</button>
-      <button onclick="shareCert()">مشاركة</button>
+  <div id="final-certificate" class="certificate-container">
+    <h1 class="title">
+      <img class="medal" src="https://cdn-icons-png.flaticon.com/512/2583/2583391.png">
+      شهادة تقدير
+      <img class="medal" src="https://cdn-icons-png.flaticon.com/512/2583/2583391.png">
+    </h1>
+
+    <div id="student-name" class="recipient"></div>
+    <div id="student-grade" class="grade"></div>
+
+    <div class="thanks" id="thanks-message"></div>
+
+    <div class="school-director">
+      <span id="school-name"></span>
+      <span id="director-name"></span>
     </div>
   </div>
-  <script src="script.js"></script>
+
+  <div class="footer-buttons">
+    <button class="btn">حفظ الصورة</button>
+    <button class="btn">تحويل إلى PDF</button>
+    <button class="btn">مشاركة</button>
+  </div>
+
+  <script>
+    let countdown;
+    function showPopup() {
+      document.getElementById('popup').style.display = 'block';
+      let time = 60;
+      updateTimer(time);
+      countdown = setInterval(() => {
+        time--;
+        updateTimer(time);
+        if (time <= 0) {
+          clearInterval(countdown);
+          document.getElementById('popup').style.display = 'none';
+          showCertificate();
+        }
+      }, 1000);
+    }
+
+    function updateTimer(seconds) {
+      const min = String(Math.floor(seconds / 60)).padStart(2, '0');
+      const sec = String(seconds % 60).padStart(2, '0');
+      document.getElementById('timer').textContent = `${min}:${sec}`;
+    }
+
+    function showCertificate() {
+      const type = document.getElementById('type').value;
+      const name = document.getElementById('name').value;
+      const grade = document.getElementById('grade').value;
+      const school = document.getElementById('school').value;
+      const director = document.getElementById('director').value;
+
+      document.getElementById('student-name').textContent = `${type} : ${name}`;
+      document.getElementById('student-grade').textContent = `الصف: ${grade}`;
+      document.getElementById('school-name').textContent = `اسم المدرسة: ${school}`;
+      document.getElementById('director-name').textContent = `اسم المدير: ${director}`;
+
+      const thanksText = (type === 'الطالبة') ?
+        "نقدم لكِ أسمى آيات الشكر والتقدير\nعلى تفوقكِ المستمر وإبداعكِ الجميل\nسائلين الله لكِ دوام النجاح" :
+        "نقدم لكَ أسمى آيات الشكر والتقدير\nعلى تفوقك المستمر وإبداعك المميز\nسائلين الله لك دوام النجاح";
+      document.getElementById('thanks-message').innerText = thanksText;
+
+      document.getElementById('final-certificate').style.display = 'block';
+    }
+  </script>
 </body>
 </html>
