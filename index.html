@@ -2,148 +2,143 @@
 <html lang="ar">
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>شهادة تقدير</title>
   <style>
     body {
       font-family: 'Amiri', serif;
-      background-color: #f4f4f4;
+      background-color: #f3e6d0;
       margin: 0;
       padding: 0;
+      direction: rtl;
+      text-align: center;
     }
 
     .container {
-      max-width: 900px;
-      margin: 0 auto;
+      max-width: 800px;
+      margin: auto;
+      padding: 30px;
       background-color: #fff;
-      padding: 20px;
-      border-radius: 10px;
-      box-shadow: 0 0 15px rgba(0, 0, 0, 0.1);
-      border: 2px dotted #c2a16c;
+      border: 3px dotted #c2a16c;
+      border-radius: 20px;
+      box-shadow: 0 0 10px rgba(0,0,0,0.1);
     }
 
     .header {
-      text-align: center;
-      font-size: 36px;
+      font-size: 40px;
       font-weight: bold;
       color: #c2a16c;
+      margin-bottom: 30px;
       position: relative;
-      padding: 20px;
     }
 
     .header::before,
     .header::after {
-      content: '🎖️';
-      font-size: 40px;
+      content: '🏅';
       position: absolute;
       top: 50%;
       transform: translateY(-50%);
+      font-size: 40px;
     }
 
     .header::before {
-      left: -50px;
-    }
-
-    .header::after {
       right: -50px;
     }
 
-    .form-section {
-      margin-top: 30px;
+    .header::after {
+      left: -50px;
     }
 
-    .form-section label {
-      font-size: 18px;
-      margin-bottom: 10px;
+    label {
       display: block;
+      margin: 10px 0 5px;
+      font-size: 18px;
     }
 
-    .form-section input {
-      width: 100%;
+    input, select {
+      width: 90%;
       padding: 10px;
-      margin: 10px 0;
-      border: 1px solid #ccc;
-      border-radius: 5px;
       font-size: 16px;
-    }
-
-    .form-section select {
-      width: 100%;
-      padding: 10px;
-      margin: 10px 0;
+      margin-bottom: 15px;
       border: 1px solid #ccc;
-      border-radius: 5px;
-      font-size: 16px;
+      border-radius: 8px;
     }
 
     .buttons {
       display: flex;
-      justify-content: space-between;
-      margin-top: 30px;
+      justify-content: space-around;
+      margin-top: 25px;
+      flex-wrap: wrap;
+      gap: 10px;
     }
 
     .buttons button {
-      padding: 15px 30px;
+      background-color: #c2a16c;
+      color: white;
+      padding: 12px 24px;
       font-size: 18px;
       border: none;
-      background-color: #c2a16c;
-      color: #fff;
+      border-radius: 8px;
       cursor: pointer;
-      border-radius: 5px;
-      transition: background-color 0.3s ease;
-    }
-
-    .buttons button:hover {
-      background-color: #a28553;
     }
 
     .popup {
       display: none;
       position: fixed;
       top: 0;
+      right: 0;
       left: 0;
-      width: 100%;
-      height: 100%;
-      background-color: rgba(0, 0, 0, 0.5);
+      bottom: 0;
+      background: rgba(0,0,0,0.6);
       justify-content: center;
       align-items: center;
-      z-index: 9999;
+      z-index: 1000;
     }
 
     .popup-content {
-      background-color: #fff;
+      background: white;
       padding: 20px;
-      border-radius: 10px;
+      border-radius: 15px;
+      width: 90%;
+      max-width: 500px;
       text-align: center;
-      width: 400px;
-      box-shadow: 0 0 15px rgba(0, 0, 0, 0.1);
     }
 
-    .popup-content h3 {
+    .popup h3 {
       font-size: 20px;
-      color: #333;
+      margin-bottom: 10px;
     }
 
-    .popup-content button {
-      background-color: #c2a16c;
-      color: #fff;
-      font-size: 18px;
-      padding: 10px;
-      border: none;
-      border-radius: 5px;
-      cursor: pointer;
-      margin-top: 20px;
-    }
-
-    .popup-content button:hover {
-      background-color: #a28553;
-    }
-
-    iframe {
+    .popup iframe {
       width: 100%;
       height: 200px;
-      margin-top: 20px;
       border: none;
+      border-radius: 10px;
+    }
+
+    .popup .timer {
+      font-size: 24px;
+      font-weight: bold;
+      margin-top: 15px;
+      color: #c55;
+    }
+
+    .popup .popup-links {
+      margin-top: 20px;
+    }
+
+    .popup .popup-links button {
+      margin: 5px;
+      padding: 10px 20px;
+      font-size: 16px;
+      background-color: #c2a16c;
+      color: white;
+      border: none;
+      border-radius: 8px;
+      cursor: pointer;
+    }
+
+    .popup .popup-links button:hover {
+      background-color: #a28553;
     }
   </style>
 </head>
@@ -151,86 +146,63 @@
 
   <div class="container">
     <div class="header">شهادة تقدير</div>
-    <div class="form-section">
-      <label for="student-name">اسم الطالب:</label>
-      <input type="text" id="student-name" placeholder="أدخل اسم الطالب">
 
-      <label for="school-name">اسم المدرسة:</label>
-      <input type="text" id="school-name" placeholder="أدخل اسم المدرسة">
+    <label for="gender">النوع</label>
+    <select id="gender">
+      <option value="male">الطالب</option>
+      <option value="female">الطالبة</option>
+    </select>
 
-      <label for="principal-name">اسم المدير:</label>
-      <input type="text" id="principal-name" placeholder="أدخل اسم المدير">
+    <label for="student-name">اسم الطالب</label>
+    <input type="text" id="student-name" placeholder="مثال: أحمد محمد">
 
-      <label for="gender">النوع:</label>
-      <select id="gender">
-        <option value="male">الطالب</option>
-        <option value="female">الطالبة</option>
-      </select>
-    </div>
+    <label for="school-name">اسم المدرسة</label>
+    <input type="text" id="school-name" placeholder="مثال: مدرسة النور">
+
+    <label for="principal-name">اسم المدير</label>
+    <input type="text" id="principal-name" placeholder="مثال: أ. خالد عبدالعزيز">
 
     <div class="buttons">
-      <button onclick="showPopup()">إظهار الشهادة</button>
-      <button onclick="savePDF()">حفظ PDF</button>
-      <button onclick="printCertificate()">طباعة</button>
+      <button onclick="triggerPopup()">إظهار الشهادة</button>
+      <button onclick="triggerPopup()">حفظ PDF</button>
+      <button onclick="triggerPopup()">طباعة</button>
+      <button onclick="triggerPopup()">مشاركة</button>
     </div>
   </div>
 
-  <div id="popup" class="popup">
+  <div class="popup" id="popup">
     <div class="popup-content">
-      <h3>يرجى الاشتراك أو مشاهدة الفيديو قبل المتابعة</h3>
-      <iframe src="https://www.youtube.com/embed/JXLa6vLQhXE?autoplay=1" frameborder="0"></iframe>
-      <div>
-        <button onclick="subscribeYouTube()">اشترك في قناتي على يوتيوب</button>
-        <button onclick="goToX()">تابعني على X</button>
-        <button onclick="closePopup()">إغلاق</button>
+      <h3>يرجى مشاهدة الفيديو والاشتراك أولاً</h3>
+      <iframe id="video" src="https://www.youtube.com/embed/JXLa6vLQhXE?autoplay=1&mute=1" allow="autoplay; encrypted-media" allowfullscreen></iframe>
+      <div class="timer" id="timer">01:00</div>
+      <div class="popup-links">
+        <button onclick="window.open('https://youtube.com/channel/UCOyD7hrUD4FH02uSaHkVd6A', '_blank')">اشترك في القناة</button>
+        <button onclick="window.open('https://x.com/ansarii212', '_blank')">تابعني على X</button>
       </div>
     </div>
   </div>
 
   <script>
-    let timer;
-    function showPopup() {
+    let countdown;
+    function triggerPopup() {
       document.getElementById('popup').style.display = 'flex';
-      disableButtons(true);
-
-      timer = setTimeout(function() {
-        enableButtons(true);
-        closePopup();
-      }, 60000); // 60 seconds timeout
+      let timeLeft = 60;
+      updateTimerDisplay(timeLeft);
+      countdown = setInterval(() => {
+        timeLeft--;
+        updateTimerDisplay(timeLeft);
+        if (timeLeft <= 0) {
+          clearInterval(countdown);
+          document.getElementById('popup').style.display = 'none';
+        }
+      }, 1000);
     }
 
-    function closePopup() {
-      document.getElementById('popup').style.display = 'none';
-    }
-
-    function disableButtons(disable) {
-      const buttons = document.querySelectorAll('.buttons button');
-      buttons.forEach(button => {
-        button.disabled = disable;
-      });
-    }
-
-    function enableButtons(enable) {
-      const buttons = document.querySelectorAll('.buttons button');
-      buttons.forEach(button => {
-        button.disabled = !enable;
-      });
-    }
-
-    function subscribeYouTube() {
-      window.open("https://youtube.com/channel/UCOyD7hrUD4FH02uSaHkVd6A", "_blank");
-    }
-
-    function goToX() {
-      window.open("https://x.com/ansarii212", "_blank");
-    }
-
-    function savePDF() {
-      alert("سيتم حفظ الشهادة كملف PDF قريبًا.");
-    }
-
-    function printCertificate() {
-      window.print();
+    function updateTimerDisplay(seconds) {
+      const timerElement = document.getElementById("timer");
+      const mins = String(Math.floor(seconds / 60)).padStart(2, '0');
+      const secs = String(seconds % 60).padStart(2, '0');
+      timerElement.textContent = `${mins}:${secs}`;
     }
   </script>
 
