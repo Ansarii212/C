@@ -49,12 +49,26 @@
       border-radius: 8px;
     }
 
+    .show-button {
+      margin-top: 25px;
+    }
+
+    .show-button button {
+      background-color: #c2a16c;
+      color: white;
+      padding: 12px 24px;
+      font-size: 18px;
+      border: none;
+      border-radius: 8px;
+      cursor: pointer;
+    }
+
     .buttons {
       display: flex;
-      justify-content: space-around;
+      justify-content: center;
+      gap: 20px;
       margin-top: 25px;
       flex-wrap: wrap;
-      gap: 10px;
     }
 
     .buttons button {
@@ -123,10 +137,6 @@
       cursor: pointer;
     }
 
-    .popup .popup-links button:hover {
-      background-color: #a28553;
-    }
-
     .certificate {
       display: none;
       margin-top: 40px;
@@ -166,6 +176,7 @@
       color: #333;
       margin-top: 20px;
       line-height: 2;
+      font-weight: bold;
     }
 
     .cert-name {
@@ -208,11 +219,8 @@
     <label for="principal-name">اسم المدير</label>
     <input type="text" id="principal-name" placeholder="مثال: أ. خالد عبدالعزيز">
 
-    <div class="buttons">
+    <div class="show-button">
       <button onclick="triggerPopup()">إظهار الشهادة</button>
-      <button onclick="triggerPopup()">حفظ PDF</button>
-      <button onclick="triggerPopup()">طباعة</button>
-      <button onclick="triggerPopup()">مشاركة</button>
     </div>
   </div>
 
@@ -236,8 +244,14 @@
       <div class="cert-name" id="cert-name">أحمد محمد</div>
     </div>
     <div class="cert-footer" id="cert-footer">
-      <span id="school-label">مدرسة النور</span>
-      <span id="principal-label">أ. خالد عبدالعزيز</span>
+      <span id="school-label">اسم المدرسة: مدرسة النور</span>
+      <span id="principal-label">اسم المدير: أ. خالد عبدالعزيز</span>
+    </div>
+
+    <div class="buttons">
+      <button onclick="window.print()">طباعة</button>
+      <button onclick="alert('سيتم توليد PDF')">حفظ PDF</button>
+      <button onclick="navigator.share ? navigator.share({ title: 'شهادة تقدير', text: 'شاهد شهادتي!', url: window.location.href }) : alert('جهازك لا يدعم المشاركة')">مشاركة</button>
     </div>
   </div>
 
@@ -272,8 +286,8 @@
       const gender = document.getElementById('gender').value;
 
       document.getElementById('cert-name').textContent = name;
-      document.getElementById('school-label').textContent = school;
-      document.getElementById('principal-label').textContent = principal;
+      document.getElementById('school-label').textContent = `اسم المدرسة: ${school}`;
+      document.getElementById('principal-label').textContent = `اسم المدير: ${principal}`;
 
       const praiseLine = gender === 'female'
         ? 'نثني على تفوقها والتزامها، ونتمنى لها مزيداً من النجاح.'
