@@ -46,7 +46,7 @@
 
     .medal {
       font-size: 36px;
-      color: #d4af37; /* ذهبي */
+      color: #d4af37;
       margin: 0 10px;
       vertical-align: middle;
     }
@@ -61,7 +61,7 @@
       margin: 15px;
     }
 
-    input {
+    input, select {
       padding: 10px;
       font-size: 18px;
       width: 60%;
@@ -93,7 +93,11 @@
       font-size: 30px;
       color: #6b240c;
       font-weight: bold;
-      text-shadow: 1px 1px 1px #eee;
+      background: linear-gradient(to right, #fdf3e7, #f5e5cd);
+      padding: 10px 20px;
+      border-radius: 15px;
+      display: inline-block;
+      box-shadow: 0 0 5px #ccc;
     }
 
     .signature {
@@ -121,17 +125,28 @@
     </div>
 
     <div class="input-group">
-      <label>اسم الطالب:</label><br>
-      <input id="studentName" type="text" placeholder="أدخل اسم الطالب">
+      <label>اختر النوع:</label><br>
+      <select id="studentType">
+        <option value="الطالب">الطالب</option>
+        <option value="الطالبة">الطالبة</option>
+      </select>
     </div>
+
+    <div class="input-group">
+      <label>اسم الطالب/الطالبة:</label><br>
+      <input id="studentName" type="text" placeholder="أدخل الاسم">
+    </div>
+
     <div class="input-group">
       <label>اسم المدير:</label><br>
       <input id="managerName" type="text" placeholder="أدخل اسم المدير">
     </div>
+
     <div class="input-group">
       <label>اسم المدرسة:</label><br>
       <input id="schoolName" type="text" placeholder="أدخل اسم المدرسة">
     </div>
+
     <div class="buttons">
       <button onclick="generateCertificate()">إنشاء الشهادة</button>
       <button onclick="print()">طباعة</button>
@@ -148,7 +163,7 @@
     </div>
 
     <p class="decor">تُمنح هذه الشهادة لـ</p>
-    <p class="name" id="certStudentName"></p>
+    <p class="name" id="certStudentFullName"></p>
     <p class="decor">وذلك تقديراً لجهوده المبذولة وتفوقه الملحوظ خلال العام الدراسي</p>
     <p class="decor">مع أطيب الأمنيات بمزيد من النجاح والتقدم</p>
 
@@ -164,11 +179,12 @@
 
   <script>
     function generateCertificate() {
-      const student = document.getElementById("studentName").value;
+      const type = document.getElementById("studentType").value;
+      const name = document.getElementById("studentName").value;
       const manager = document.getElementById("managerName").value;
       const school = document.getElementById("schoolName").value;
 
-      document.getElementById("certStudentName").textContent = student;
+      document.getElementById("certStudentFullName").textContent = `${type} ${name}`;
       document.getElementById("certManagerName").textContent = manager;
       document.getElementById("certSchoolName").textContent = school;
 
@@ -178,7 +194,7 @@
 
     function downloadAsImage() {
       const output = document.getElementById("output");
-      html2canvas(output).then(canvas => {
+      html2canvas(output, { scale: 2 }).then(canvas => {
         const link = document.createElement("a");
         link.download = "شهادة_تقدير.png";
         link.href = canvas.toDataURL("image/png");
@@ -190,7 +206,7 @@
       const { jsPDF } = window.jspdf;
       const output = document.getElementById("output");
 
-      html2canvas(output).then(canvas => {
+      html2canvas(output, { scale: 2 }).then(canvas => {
         const imgData = canvas.toDataURL("image/png");
         const pdf = new jsPDF('landscape', 'pt', [canvas.width, canvas.height]);
         pdf.addImage(imgData, 'PNG', 0, 0, canvas.width, canvas.height);
