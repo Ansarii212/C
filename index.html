@@ -14,54 +14,58 @@
       text-align: center;
     }
 
-    .container {
-      max-width: 800px;
-      margin: auto;
-      padding: 30px;
-      background-color: #fff;
-      border: 3px dotted #c2a16c;
+    .certificate {
+      display: none;
+      margin: 40px auto;
+      padding: 40px;
+      background: linear-gradient(to bottom, #fff8ec, #f1e4cc);
+      border: 4px double #b4883b;
       border-radius: 20px;
+      width: 70%;
+      box-shadow: 0 0 15px rgba(0,0,0,0.1);
     }
 
-    .header {
-      font-size: 44px;
-      color: #b4883b;
+    .certificate h1 {
+      font-size: 48px;
+      color: #a36b2c;
       margin-bottom: 10px;
+      position: relative;
+    }
+
+    .certificate h1::before,
+    .certificate h1::after {
+      content: '۞';
+      font-size: 32px;
+      color: #a36b2c;
+      margin: 0 15px;
+    }
+
+    .student-name {
+      font-size: 30px;
+      background-color: #f0dfc2;
+      padding: 10px 20px;
+      border-radius: 10px;
+      display: inline-block;
+      margin: 10px auto 20px;
+      font-weight: bold;
+      color: #5a3d1c;
+    }
+
+    .cert-body {
+      font-size: 22px;
+      line-height: 2;
+      color: #333;
+      font-weight: bold;
+    }
+
+    .cert-footer {
       display: flex;
-      align-items: center;
-      justify-content: center;
-      gap: 10px;
-    }
-
-    label {
-      display: block;
-      margin: 10px 0 5px;
-      font-size: 20px;
-    }
-
-    input, select {
-      width: 90%;
-      padding: 10px;
+      justify-content: space-between;
+      margin-top: 30px;
       font-size: 18px;
-      margin-bottom: 15px;
-      border: 1px solid #ccc;
-      border-radius: 8px;
-      font-family: 'Scheherazade New', serif;
-    }
-
-    .show-button {
-      margin-top: 25px;
-    }
-
-    .show-button button {
-      background-color: #c2a16c;
-      color: white;
-      padding: 12px 24px;
-      font-size: 20px;
-      border: none;
-      border-radius: 8px;
-      cursor: pointer;
-      font-family: 'Scheherazade New', serif;
+      font-weight: bold;
+      color: #5c4228;
+      padding: 0 30px;
     }
 
     .buttons {
@@ -82,222 +86,54 @@
       cursor: pointer;
       font-family: 'Scheherazade New', serif;
     }
-
-    .popup {
-      display: none;
-      position: fixed;
-      top: 0;
-      right: 0;
-      left: 0;
-      bottom: 0;
-      background: rgba(0,0,0,0.6);
-      justify-content: center;
-      align-items: center;
-      z-index: 1000;
-    }
-
-    .popup-content {
-      background: white;
-      padding: 20px;
-      border-radius: 15px;
-      width: 90%;
-      max-width: 500px;
-      text-align: center;
-    }
-
-    .popup h3 {
-      font-size: 22px;
-      margin-bottom: 10px;
-    }
-
-    .popup iframe {
-      width: 100%;
-      height: 200px;
-      border: none;
-      border-radius: 10px;
-    }
-
-    .popup .timer {
-      font-size: 28px;
-      font-weight: bold;
-      margin-top: 15px;
-      color: #c55;
-    }
-
-    .popup .popup-links {
-      margin-top: 20px;
-    }
-
-    .popup .popup-links button {
-      margin: 5px;
-      padding: 10px 20px;
-      font-size: 16px;
-      background-color: #c2a16c;
-      color: white;
-      border: none;
-      border-radius: 8px;
-      cursor: pointer;
-    }
-
-    .certificate {
-      display: none;
-      margin-top: 40px;
-      padding: 30px;
-      background: linear-gradient(to bottom, #f9f1e5, #f3e6d0);
-      border: 3px solid #c2a16c;
-      border-radius: 20px;
-    }
-
-    .certificate h1 {
-      font-size: 42px;
-      color: #b4883b;
-      margin-bottom: 10px;
-      position: relative;
-      display: inline-block;
-    }
-
-    .certificate h1::before,
-    .certificate h1::after {
-      content: '🏅';
-      font-size: 36px;
-      position: absolute;
-      top: 0;
-    }
-
-    .certificate h1::before {
-      right: -40px;
-    }
-
-    .certificate h1::after {
-      left: -40px;
-    }
-
-    .cert-name {
-      font-size: 30px;
-      font-weight: bold;
-      background-color: #f0dfc2;
-      padding: 12px;
-      margin: 20px auto 10px;
-      border-radius: 12px;
-      display: inline-block;
-      color: #5a3d1c;
-    }
-
-    .cert-body {
-      font-size: 22px;
-      color: #333;
-      margin-top: 15px;
-      line-height: 2;
-      font-weight: bold;
-    }
-
-    .cert-footer {
-      display: flex;
-      justify-content: space-between;
-      margin-top: 30px;
-      font-size: 18px;
-      font-weight: bold;
-      color: #5c4228;
-    }
   </style>
 </head>
 <body>
 
-  <div class="container">
-    <div class="header"><span>🏅</span> شهادة تقدير <span>🏅</span></div>
-
-    <label for="gender">النوع</label>
-    <select id="gender">
-      <option value="male">الطالب</option>
-      <option value="female">الطالبة</option>
-    </select>
-
-    <label for="student-name">اسم الطالب</label>
-    <input type="text" id="student-name" placeholder="مثال: أحمد محمد">
-
-    <label for="school-name">اسم المدرسة</label>
-    <input type="text" id="school-name" placeholder="مثال: مدرسة النور">
-
-    <label for="principal-name">اسم المدير</label>
-    <input type="text" id="principal-name" placeholder="مثال: أ. خالد عبدالعزيز">
-
-    <div class="show-button">
-      <button onclick="triggerPopup()">إظهار الشهادة</button>
-    </div>
-  </div>
-
-  <div class="popup" id="popup">
-    <div class="popup-content">
-      <h3>يرجى مشاهدة الفيديو والاشتراك أولاً</h3>
-      <iframe id="video" src="https://www.youtube.com/embed/JXLa6vLQhXE?autoplay=1&mute=1" allow="autoplay; encrypted-media" allowfullscreen></iframe>
-      <div class="timer" id="timer">01:00</div>
-      <div class="popup-links">
-        <button onclick="window.open('https://youtube.com/channel/UCOyD7hrUD4FH02uSaHkVd6A', '_blank')">اشترك في القناة</button>
-        <button onclick="window.open('https://x.com/ansarii212', '_blank')">تابعني على X</button>
-      </div>
-    </div>
-  </div>
-
   <div class="certificate" id="certificate">
     <h1>شهادة تقدير</h1>
-    <div class="cert-name" id="cert-name">الطالب: أحمد محمد</div>
+    <div class="student-name" id="cert-name">الطالب: أحمد محمد</div>
+
     <div class="cert-body" id="cert-body">
       <p>تُمنح هذه الشهادة تقديراً لما قدمه من جهد وعطاء.</p>
-      <p id="praise-line">نثني على تفوقه والتزامه، ونتمنى له مزيداً من النجاح.</p>
+      <p>نثني على تفوقه والتزامه، ونتمنى له مزيداً من النجاح.</p>
+      <p>ونسأل الله له التوفيق والسداد في مسيرته التعليمية.</p>
     </div>
-    <div class="cert-footer" id="cert-footer">
+
+    <div class="cert-footer">
       <span id="school-label">اسم المدرسة: مدرسة النور</span>
       <span id="principal-label">اسم المدير: أ. خالد عبدالعزيز</span>
     </div>
 
     <div class="buttons">
       <button onclick="window.print()">طباعة</button>
-      <button onclick="alert('سيتم توليد PDF')">حفظ PDF</button>
+      <button onclick="alert('سيتم حفظ PDF')">PDF</button>
       <button onclick="navigator.share ? navigator.share({ title: 'شهادة تقدير', text: 'شاهد شهادتي!', url: window.location.href }) : alert('جهازك لا يدعم المشاركة')">مشاركة</button>
     </div>
   </div>
 
   <script>
-    let countdown;
-    function triggerPopup() {
-      document.getElementById('popup').style.display = 'flex';
-      let timeLeft = 60;
-      updateTimerDisplay(timeLeft);
-      countdown = setInterval(() => {
-        timeLeft--;
-        updateTimerDisplay(timeLeft);
-        if (timeLeft <= 0) {
-          clearInterval(countdown);
-          document.getElementById('popup').style.display = 'none';
-          showCertificate();
-        }
-      }, 1000);
-    }
-
-    function updateTimerDisplay(seconds) {
-      const timerElement = document.getElementById("timer");
-      const mins = String(Math.floor(seconds / 60)).padStart(2, '0');
-      const secs = String(seconds % 60).padStart(2, '0');
-      timerElement.textContent = `${mins}:${secs}`;
-    }
-
+    // هذه دالة مثال لعرض الشهادة، يمكن ربطها بمنبثق أو زر
     function showCertificate() {
-      const name = document.getElementById('student-name').value || 'الطالب';
-      const school = document.getElementById('school-name').value || 'المدرسة';
-      const principal = document.getElementById('principal-name').value || 'المدير';
-      const gender = document.getElementById('gender').value;
+      const name = 'أحمد محمد'; // استبدله بمدخل المستخدم
+      const gender = 'male'; // أو female حسب الاختيار
 
-      const label = gender === 'female' ? 'الطالبة: ' : 'الطالب: ';
-      const praiseLine = gender === 'female'
+      const label = gender === 'female' ? 'الطالبة:' : 'الطالب:';
+      const praise = gender === 'female'
         ? 'نثني على تفوقها والتزامها، ونتمنى لها مزيداً من النجاح.'
         : 'نثني على تفوقه والتزامه، ونتمنى له مزيداً من النجاح.';
 
-      document.getElementById('cert-name').textContent = `${label}${name}`;
-      document.getElementById('school-label').textContent = `اسم المدرسة: ${school}`;
-      document.getElementById('principal-label').textContent = `اسم المدير: ${principal}`;
-      document.getElementById('praise-line').textContent = praiseLine;
+      document.getElementById('cert-name').textContent = `${label} ${name}`;
+      document.getElementById('cert-body').innerHTML = `
+        <p>تُمنح هذه الشهادة تقديراً لما قدم${gender === 'female' ? 'ته' : 'ه'} من جهد وعطاء.</p>
+        <p>${praise}</p>
+        <p>ونسأل الله له${gender === 'female' ? 'ا' : ''} التوفيق والسداد في مسيرت${gender === 'female' ? 'ها' : 'ه'} التعليمية.</p>
+      `;
       document.getElementById('certificate').style.display = 'block';
     }
+
+    // عرض الشهادة تلقائياً للتجربة
+    showCertificate();
   </script>
 
 </body>
