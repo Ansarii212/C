@@ -27,25 +27,11 @@
       font-size: 40px;
       font-weight: bold;
       color: #c2a16c;
-      margin-bottom: 30px;
-      position: relative;
-    }
-
-    .header::before,
-    .header::after {
-      content: '🏅';
-      position: absolute;
-      top: 50%;
-      transform: translateY(-50%);
-      font-size: 40px;
-    }
-
-    .header::before {
-      right: -50px;
-    }
-
-    .header::after {
-      left: -50px;
+      margin-bottom: 20px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 10px;
     }
 
     label {
@@ -140,12 +126,72 @@
     .popup .popup-links button:hover {
       background-color: #a28553;
     }
+
+    .certificate {
+      display: none;
+      margin-top: 40px;
+      padding: 30px;
+      background: linear-gradient(to bottom, #f9f1e5, #f3e6d0);
+      border: 3px solid #c2a16c;
+      border-radius: 20px;
+      box-shadow: 0 0 15px rgba(0,0,0,0.1);
+    }
+
+    .certificate h1 {
+      font-size: 36px;
+      color: #b4883b;
+      margin-bottom: 10px;
+      position: relative;
+      display: inline-block;
+    }
+
+    .certificate h1::before,
+    .certificate h1::after {
+      content: '🏅';
+      font-size: 36px;
+      position: absolute;
+      top: 0;
+    }
+
+    .certificate h1::before {
+      right: -40px;
+    }
+
+    .certificate h1::after {
+      left: -40px;
+    }
+
+    .cert-body {
+      font-size: 22px;
+      color: #333;
+      margin-top: 20px;
+      line-height: 2;
+    }
+
+    .cert-name {
+      font-size: 28px;
+      font-weight: bold;
+      background-color: #f0dfc2;
+      padding: 10px;
+      margin: 10px 0;
+      border-radius: 12px;
+      display: inline-block;
+    }
+
+    .cert-footer {
+      display: flex;
+      justify-content: space-between;
+      margin-top: 30px;
+      font-size: 18px;
+      font-weight: bold;
+      color: #5c4228;
+    }
   </style>
 </head>
 <body>
 
   <div class="container">
-    <div class="header">شهادة تقدير</div>
+    <div class="header"><span>🏅</span> شهادة تقدير <span>🏅</span></div>
 
     <label for="gender">النوع</label>
     <select id="gender">
@@ -182,6 +228,19 @@
     </div>
   </div>
 
+  <div class="certificate" id="certificate">
+    <h1>شهادة تقدير</h1>
+    <div class="cert-body" id="cert-body">
+      <p>تُمنح هذه الشهادة تقديراً لما قدمه من جهد وعطاء.</p>
+      <p id="praise-line">نثني على تفوقه والتزامه، ونتمنى له مزيداً من النجاح.</p>
+      <div class="cert-name" id="cert-name">أحمد محمد</div>
+    </div>
+    <div class="cert-footer" id="cert-footer">
+      <span id="school-label">مدرسة النور</span>
+      <span id="principal-label">أ. خالد عبدالعزيز</span>
+    </div>
+  </div>
+
   <script>
     let countdown;
     function triggerPopup() {
@@ -194,6 +253,7 @@
         if (timeLeft <= 0) {
           clearInterval(countdown);
           document.getElementById('popup').style.display = 'none';
+          showCertificate();
         }
       }, 1000);
     }
@@ -203,6 +263,24 @@
       const mins = String(Math.floor(seconds / 60)).padStart(2, '0');
       const secs = String(seconds % 60).padStart(2, '0');
       timerElement.textContent = `${mins}:${secs}`;
+    }
+
+    function showCertificate() {
+      const name = document.getElementById('student-name').value || 'الطالب';
+      const school = document.getElementById('school-name').value || 'المدرسة';
+      const principal = document.getElementById('principal-name').value || 'المدير';
+      const gender = document.getElementById('gender').value;
+
+      document.getElementById('cert-name').textContent = name;
+      document.getElementById('school-label').textContent = school;
+      document.getElementById('principal-label').textContent = principal;
+
+      const praiseLine = gender === 'female'
+        ? 'نثني على تفوقها والتزامها، ونتمنى لها مزيداً من النجاح.'
+        : 'نثني على تفوقه والتزامه، ونتمنى له مزيداً من النجاح.';
+      document.getElementById('praise-line').textContent = praiseLine;
+
+      document.getElementById('certificate').style.display = 'block';
     }
   </script>
 
