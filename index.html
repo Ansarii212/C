@@ -21,6 +21,7 @@
       background: #fffaf0;
       width: 90%;
       max-width: 800px;
+      position: relative;
     }
 
     h1.title {
@@ -128,6 +129,20 @@
     .footer-buttons {
       margin-top: 20px;
     }
+
+    #director-signature {
+      font-style: italic;
+      font-size: 20px;
+      margin-top: 10px;
+    }
+
+    #saudi-logo {
+      position: absolute;
+      top: 20px;
+      left: 20px;
+      width: 60px;
+      height: 60px;
+    }
   </style>
 </head>
 <body>
@@ -154,6 +169,8 @@
   </div>
 
   <div id="final-certificate" class="certificate-container">
+    <img id="saudi-logo" src="https://upload.wikimedia.org/wikipedia/commons/7/79/Logo_of_the_Ministry_of_Education_of_Saudi_Arabia.svg" alt="شعار وزارة التعليم" onerror="this.style.display='none';">
+    
     <h1 class="title">
       <img class="medal" src="https://cdn-icons-png.flaticon.com/512/2583/2583391.png">
       شهادة تقدير
@@ -169,6 +186,8 @@
       <span id="school-name"></span>
       <span id="director-name"></span>
     </div>
+
+    <div id="director-signature">توقيع المدير</div>
   </div>
 
   <div class="footer-buttons">
@@ -252,7 +271,15 @@
     }
 
     function shareCertificate() {
-      alert("مشاركة الشهادة غير مفعلة على هذا المتصفح، يرجى حفظها أولاً.");
+      if (navigator.share) {
+        navigator.share({
+          title: 'شهادة تقدير',
+          text: 'تم إصدار شهادة تقدير للطالب/الطالبة.',
+          url: window.location.href
+        }).catch(error => console.log("Error sharing:", error));
+      } else {
+        alert("مشاركة الشهادة غير مدعومة في هذا المتصفح.");
+      }
     }
   </script>
 </body>
