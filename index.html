@@ -21,7 +21,6 @@
       background: #fffaf0;
       width: 90%;
       max-width: 800px;
-      position: relative;
     }
 
     h1.title {
@@ -120,6 +119,12 @@
       font-weight: bold;
     }
 
+    .director-signature {
+      text-align: center;
+      margin-top: 20px;
+      font-weight: normal;
+    }
+
     .thanks {
       font-size: 20px;
       margin-top: 20px;
@@ -130,18 +135,11 @@
       margin-top: 20px;
     }
 
-    #director-signature {
-      font-style: italic;
-      font-size: 20px;
-      margin-top: 10px;
-    }
-
-    #saudi-logo {
-      position: absolute;
-      top: 20px;
-      left: 20px;
+    .logo {
       width: 60px;
-      height: 60px;
+      position: absolute;
+      left: 20px;
+      top: 20px;
     }
   </style>
 </head>
@@ -157,6 +155,7 @@
     <input type="text" id="grade" placeholder="أدخل الصف">
     <input type="text" id="school" placeholder="أدخل اسم المدرسة">
     <input type="text" id="director" placeholder="أدخل اسم المدير">
+    <input type="text" id="signature" placeholder="أدخل توقيع المدير/ة">
     <button class="btn" onclick="showPopup()">عرض الشهادة</button>
   </div>
 
@@ -169,7 +168,7 @@
   </div>
 
   <div id="final-certificate" class="certificate-container">
-    <img id="saudi-logo" src="https://upload.wikimedia.org/wikipedia/commons/7/79/Logo_of_the_Ministry_of_Education_of_Saudi_Arabia.svg" alt="شعار وزارة التعليم" onerror="this.style.display='none';">
+    <img class="logo" src="https://upload.wikimedia.org/wikipedia/commons/thumb/e/ed/Logo_of_Saudi_Ministry_of_Education.svg/1200px-Logo_of_Saudi_Ministry_of_Education.svg.png" alt="وزارة التعليم السعودية" onerror="this.style.display='none'">
     
     <h1 class="title">
       <img class="medal" src="https://cdn-icons-png.flaticon.com/512/2583/2583391.png">
@@ -187,21 +186,17 @@
       <span id="director-name"></span>
     </div>
 
-    <div id="director-signature">توقيع المدير</div>
+    <div class="director-signature" id="signature-name"></div>
   </div>
 
   <div class="footer-buttons">
-    <button class="btn" onclick="saveAsImage()">حفظ الصورة</button>
-    <button class="btn" onclick="convertToPDF()">تحويل إلى PDF</button>
+    <button class="btn">حفظ الصورة</button>
+    <button class="btn">تحويل إلى PDF</button>
     <button class="btn" onclick="shareCertificate()">مشاركة</button>
   </div>
 
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
-
   <script>
     let countdown;
-
     function showPopup() {
       document.getElementById('popup').style.display = 'block';
       let time = 60;
@@ -229,56 +224,33 @@
       const grade = document.getElementById('grade').value;
       const school = document.getElementById('school').value;
       const director = document.getElementById('director').value;
+      const signature = document.getElementById('signature').value;
 
       document.getElementById('student-name').textContent = `${type} : ${name}`;
       document.getElementById('student-grade').textContent = `الصف: ${grade}`;
       document.getElementById('school-name').textContent = `اسم المدرسة: ${school}`;
       document.getElementById('director-name').textContent = `اسم المدير: ${director}`;
+      document.getElementById('signature-name').textContent = `توقيع المدير/ة: ${signature}`;
 
       const thanksText = (type === 'الطالبة') ?
-        `نقدم لكِ أسمى آيات الشكر والتقدير على اجتهادكِ وتفوقكِ الدائم.
-        لقد كنتِ مثالاً يحتذى به في المثابرة والسلوك الحسن.
-        سائلين الله لكِ مزيداً من التألق والنجاح والتميز في جميع مراحل حياتكِ.` :
-        `نقدم لكَ أسمى آيات الشكر والتقدير على اجتهادك وتفوقك الدائم.
-        لقد كنتَ مثالاً يُحتذى به في المثابرة والسلوك الحسن.
-        سائلين الله لك دوام النجاح والتميز في جميع مراحل حياتك.`;
-
+        "نقدم لكِ أسمى آيات الشكر والتقدير\nعلى تفوقكِ المستمر وإبداعكِ الجميل\nسائلين الله لكِ دوام النجاح" :
+        "نقدم لكَ أسمى آيات الشكر والتقدير\nعلى تفوقك المستمر وإبداعك المميز\nسائلين الله لك دوام النجاح";
       document.getElementById('thanks-message').innerText = thanksText;
 
       document.getElementById('final-certificate').style.display = 'block';
     }
 
-    function saveAsImage() {
-      html2canvas(document.getElementById("final-certificate")).then(canvas => {
-        const link = document.createElement("a");
-        link.download = "certificate.png";
-        link.href = canvas.toDataURL();
-        link.click();
-      });
-    }
-
-    async function convertToPDF() {
-      const { jsPDF } = window.jspdf;
-      const canvas = await html2canvas(document.getElementById("final-certificate"));
-      const imgData = canvas.toDataURL("image/png");
-
-      const pdf = new jsPDF('p', 'mm', 'a4');
-      const width = pdf.internal.pageSize.getWidth();
-      const height = (canvas.height * width) / canvas.width;
-
-      pdf.addImage(imgData, 'PNG', 0, 10, width, height);
-      pdf.save("certificate.pdf");
-    }
-
     function shareCertificate() {
+      const shareText = `شهادة تقدير للطالب: ${document.getElementById('student-name').textContent}`;
+      const shareUrl = window.location.href;
       if (navigator.share) {
         navigator.share({
           title: 'شهادة تقدير',
-          text: 'تم إصدار شهادة تقدير للطالب/الطالبة.',
-          url: window.location.href
-        }).catch(error => console.log("Error sharing:", error));
+          text: shareText,
+          url: shareUrl
+        });
       } else {
-        alert("مشاركة الشهادة غير مدعومة في هذا المتصفح.");
+        alert("مشاركة الشهادة غير مدعومة في متصفحك.");
       }
     }
   </script>
