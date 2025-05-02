@@ -172,13 +172,17 @@
   </div>
 
   <div class="footer-buttons">
-    <button class="btn">حفظ الصورة</button>
-    <button class="btn">تحويل إلى PDF</button>
-    <button class="btn">مشاركة</button>
+    <button class="btn" onclick="saveAsImage()">حفظ الصورة</button>
+    <button class="btn" onclick="convertToPDF()">تحويل إلى PDF</button>
+    <button class="btn" onclick="shareCertificate()">مشاركة</button>
   </div>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
 
   <script>
     let countdown;
+
     function showPopup() {
       document.getElementById('popup').style.display = 'block';
       let time = 60;
@@ -213,11 +217,42 @@
       document.getElementById('director-name').textContent = `اسم المدير: ${director}`;
 
       const thanksText = (type === 'الطالبة') ?
-        "نقدم لكِ أسمى آيات الشكر والتقدير\nعلى تفوقكِ المستمر وإبداعكِ الجميل\nسائلين الله لكِ دوام النجاح" :
-        "نقدم لكَ أسمى آيات الشكر والتقدير\nعلى تفوقك المستمر وإبداعك المميز\nسائلين الله لك دوام النجاح";
+        `نقدم لكِ أسمى آيات الشكر والتقدير على اجتهادكِ وتفوقكِ الدائم.
+        لقد كنتِ مثالاً يحتذى به في المثابرة والسلوك الحسن.
+        سائلين الله لكِ مزيداً من التألق والنجاح والتميز في جميع مراحل حياتكِ.` :
+        `نقدم لكَ أسمى آيات الشكر والتقدير على اجتهادك وتفوقك الدائم.
+        لقد كنتَ مثالاً يُحتذى به في المثابرة والسلوك الحسن.
+        سائلين الله لك دوام النجاح والتميز في جميع مراحل حياتك.`;
+
       document.getElementById('thanks-message').innerText = thanksText;
 
       document.getElementById('final-certificate').style.display = 'block';
+    }
+
+    function saveAsImage() {
+      html2canvas(document.getElementById("final-certificate")).then(canvas => {
+        const link = document.createElement("a");
+        link.download = "certificate.png";
+        link.href = canvas.toDataURL();
+        link.click();
+      });
+    }
+
+    async function convertToPDF() {
+      const { jsPDF } = window.jspdf;
+      const canvas = await html2canvas(document.getElementById("final-certificate"));
+      const imgData = canvas.toDataURL("image/png");
+
+      const pdf = new jsPDF('p', 'mm', 'a4');
+      const width = pdf.internal.pageSize.getWidth();
+      const height = (canvas.height * width) / canvas.width;
+
+      pdf.addImage(imgData, 'PNG', 0, 10, width, height);
+      pdf.save("certificate.pdf");
+    }
+
+    function shareCertificate() {
+      alert("مشاركة الشهادة غير مفعلة على هذا المتصفح، يرجى حفظها أولاً.");
     }
   </script>
 </body>
