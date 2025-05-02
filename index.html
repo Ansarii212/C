@@ -21,6 +21,7 @@
       background: #fffaf0;
       width: 90%;
       max-width: 800px;
+      position: relative;
     }
 
     h1.title {
@@ -104,7 +105,7 @@
       display: inline-block;
       padding: 10px 20px;
       border-radius: 10px;
-      margin: 10px 0;
+      margin-top: 10px;
     }
 
     .grade {
@@ -154,8 +155,7 @@
     <input type="text" id="name" placeholder="أدخل الاسم هنا">
     <input type="text" id="grade" placeholder="أدخل الصف">
     <input type="text" id="school" placeholder="أدخل اسم المدرسة">
-    <input type="text" id="director" placeholder="أدخل اسم المدير">
-    <input type="text" id="signature" placeholder="أدخل توقيع المدير/ة">
+    <input type="text" id="director" placeholder="أدخل اسم المدير/ة">
     <button class="btn" onclick="showPopup()">عرض الشهادة</button>
   </div>
 
@@ -196,12 +196,20 @@
   </div>
 
   <script>
-    let countdown;
+    const thanksOptions = [
+      "نقدم لك أسمى آيات الشكر والتقدير على تفوقك الدائم.",
+      "جهودك الرائعة تستحق منا كل تقدير واحترام.",
+      "بوركت خطاك ودام تألقك وإبداعك.",
+      "كل الشكر لك على هذا التميز والنجاح الباهر.",
+      "نتمنى لك دوام النجاح والتوفيق في حياتك العلمية والعملية.",
+      "نفتخر بك وبإنجازاتك المستمرة. إلى الأمام دائماً!"
+    ];
+
     function showPopup() {
       document.getElementById('popup').style.display = 'block';
       let time = 60;
       updateTimer(time);
-      countdown = setInterval(() => {
+      const countdown = setInterval(() => {
         time--;
         updateTimer(time);
         if (time <= 0) {
@@ -224,18 +232,15 @@
       const grade = document.getElementById('grade').value;
       const school = document.getElementById('school').value;
       const director = document.getElementById('director').value;
-      const signature = document.getElementById('signature').value;
 
       document.getElementById('student-name').textContent = `${type} : ${name}`;
       document.getElementById('student-grade').textContent = `الصف: ${grade}`;
       document.getElementById('school-name').textContent = `اسم المدرسة: ${school}`;
-      document.getElementById('director-name').textContent = `اسم المدير: ${director}`;
-      document.getElementById('signature-name').textContent = `توقيع المدير/ة: ${signature}`;
+      document.getElementById('director-name').textContent = `اسم المدير/ة: ${director}`;
+      document.getElementById('signature-name').textContent = "توقيع المدير/ة";
 
-      const thanksText = (type === 'الطالبة') ?
-        "نقدم لكِ أسمى آيات الشكر والتقدير\nعلى تفوقكِ المستمر وإبداعكِ الجميل\nسائلين الله لكِ دوام النجاح" :
-        "نقدم لكَ أسمى آيات الشكر والتقدير\nعلى تفوقك المستمر وإبداعك المميز\nسائلين الله لك دوام النجاح";
-      document.getElementById('thanks-message').innerText = thanksText;
+      const randomThanks = thanksOptions[Math.floor(Math.random() * thanksOptions.length)];
+      document.getElementById('thanks-message').innerText = randomThanks;
 
       document.getElementById('final-certificate').style.display = 'block';
     }
@@ -253,6 +258,14 @@
         alert("مشاركة الشهادة غير مدعومة في متصفحك.");
       }
     }
+
+    // إخفاء الشهادة عند تغيير أي إدخال
+    const inputs = document.querySelectorAll('#type, #name, #grade, #school, #director');
+    inputs.forEach(input => {
+      input.addEventListener('input', () => {
+        document.getElementById('final-certificate').style.display = 'none';
+      });
+    });
   </script>
 </body>
 </html>
